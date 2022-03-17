@@ -1,4 +1,6 @@
 package edu.bsu.cs222.menubuilder;
 
-public record Recipe() {
+public interface Recipe() {
+    String recipeText();
+    List<Ingredient> ingredients();
 }
