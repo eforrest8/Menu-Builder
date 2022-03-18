@@ -1,7 +1,8 @@
 package edu.bsu.cs222.menubuilder;
 
-public interface Recipe() {
+import java.io.IOException;
+import java.util.List;
+
+public interface Recipe {
     String getTitle();
-    String getRecipeText();
-    List<Ingredient> getIngredients();
 }

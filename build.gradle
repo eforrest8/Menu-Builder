@@ -6,11 +6,11 @@ plugins {
 
 javafx {
     version = "17"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.web' ]
 }
 
 application {
-    mainClassName = "edu.bsu.cs222.MenuBuilderApplication"
+    mainClassName = "edu.bsu.cs222.menubuilder.MenuBuilderApplication"
 }
 
 group 'edu.bsu.cs222'
