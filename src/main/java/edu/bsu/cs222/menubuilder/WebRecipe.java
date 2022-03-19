@@ -1,16 +1,13 @@
 package edu.bsu.cs222.menubuilder;
 
-import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
-import java.util.stream.Collectors;
 
-public class WebRecipe implements Recipe {
-    private String title;
-    private URI recipeURI;
+public class WebRecipe implements RemoteRecipe {
+    private String title = "test default title xd";
+    private URL recipeURL;
 
     public WebRecipe(String url) {
-        setRecipeURI(url);
+        setRecipeURL(url);
     }
 
     @Override
@@ -18,11 +15,21 @@ public class WebRecipe implements Recipe {
         return title;
     }
 
-    public void setRecipeURI(String url) {
+    public void setRecipeURL(String url) {
         try {
-            recipeURI = new URI(url);
+            recipeURL = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public URI getURI() {
+        try {
+            return recipeURL.toURI();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        return URI.create("");
     }
 }
