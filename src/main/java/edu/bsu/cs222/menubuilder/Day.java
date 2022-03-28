@@ -1,6 +1,8 @@
 package edu.bsu.cs222.menubuilder;
 
-public interface Day {
+import java.util.List;
+
+public interface Day extends List<Recipe> {
     String getName();
     int getIndex();
 }
