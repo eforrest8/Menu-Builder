@@ -1,10 +1,9 @@
 package edu.bsu.cs222.menubuilder;
 
 import java.time.DayOfWeek;
-import java.time.MonthDay;
 import java.util.LinkedList;
 
-public class WeekDay extends LinkedList<Recipe> {
+public class WeekDay extends LinkedList<Recipe> implements Day {
     private DayOfWeek dayOfWeek;
 
     public WeekDay(DayOfWeek dayOfWeek) {
@@ -13,5 +12,10 @@ public class WeekDay extends LinkedList<Recipe> {
 
     public String getName() {
         return dayOfWeek.name();
+    }
+
+    @Override
+    public int getIndex() {
+        return dayOfWeek.getValue();
     }
 }
