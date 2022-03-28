@@ -5,6 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.time.DayOfWeek;
+
 public class MenuBuilderApplication extends Application {
     private static Recipe recipe = new WebRecipe("https://www.allrecipes.com/recipe/16310/corned-beef-and-cabbage-i/");
 
@@ -16,7 +18,15 @@ public class MenuBuilderApplication extends Application {
     }
 
     private static Parent buildUI() {
-        return new RecipeDetailView(recipe);
+        Menu menu = new Menu();
+        Day day = new WeekDay(DayOfWeek.MONDAY);
+        Day day2 = new WeekDay(DayOfWeek.THURSDAY);
+        day.add(recipe);
+        day.add(recipe);
+        day2.add(recipe);
+        menu.add(day);
+        menu.add(day2);
+        return new WeeklyMenuBox(menu);
     }
 
     public static void main(String[] args) {
