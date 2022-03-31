@@ -6,7 +6,8 @@ public class WebRecipe implements RemoteRecipe {
     private String title = "test default title xd";
     private URL recipeURL;
 
-    public WebRecipe(String url) {
+    public WebRecipe(String title, String url) {
+        this.title = title;
         setRecipeURL(url);
     }
 
