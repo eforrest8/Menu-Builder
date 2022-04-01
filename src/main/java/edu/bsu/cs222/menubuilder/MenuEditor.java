@@ -1,21 +1,23 @@
 package edu.bsu.cs222.menubuilder;
 
+//TO DO
+// Add recipe and take away recipe buttons
+// Close and save button for the editor
+// Buttons to change
+
 import javafx.scene.layout.HBox;
 
-//Week auto-updater -- MAYBE
-
-public class WeeklyMenuBox extends HBox {
+public class MenuEditor extends HBox {
     private Menu menu;
-    public WeeklyMenuBox(Menu menu) {
+    public MenuEditor(Menu menu){
         this.menu = menu;
-        this.buildUI();
     }
-
     private void buildUI() {
         this.setMinSize(640, 480);
-        for (Day day:
+        for (Day day :
                 menu) {
             this.getChildren().add(new DayView(day));
+
         }
     }
 }
