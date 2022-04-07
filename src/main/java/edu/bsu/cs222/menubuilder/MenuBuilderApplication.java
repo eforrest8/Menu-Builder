@@ -1,26 +1,23 @@
 package edu.bsu.cs222.menubuilder;
 
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.time.DayOfWeek;
 
 public class MenuBuilderApplication extends Application {
-    private static Recipe recipe = new WebRecipe("corned beef and cabbage", "https://www.allrecipes.com/recipe/16310/corned-beef-and-cabbage-i/");
+    private final static Recipe recipe = new WebRecipe("corned beef and cabbage", "https://www.allrecipes.com/recipe/16310/corned-beef-and-cabbage-i/");
 
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = new Scene(buildUI());
-        primaryStage.setScene(scene);
+        primaryStage.setScene(buildUI());
         primaryStage.show();
     }
 
-    private static Parent buildUI() {
+    private static Scene buildUI() {
         Menu menu = new Menu();
         Day day = new WeekDay(DayOfWeek.MONDAY);
         Day day2 = new WeekDay(DayOfWeek.THURSDAY);
@@ -31,9 +28,7 @@ public class MenuBuilderApplication extends Application {
         menu.add(day2);
         Button testRecipeSearch = new Button("open search menu");
         testRecipeSearch.setOnAction(e -> showRecipeSearchStage());
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(testRecipeSearch, new WeeklyMenuBox(menu));
-        return vBox;
+        return new WeeklyMenuViewScene(menu);
     }
 
     private static void showRecipeSearchStage() {
