@@ -1,26 +1,30 @@
 package edu.bsu.cs222.menubuilder;
 
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class DayView extends VBox {
-    private final Day day;
+public class DayViewBox extends VBox {
 
-    public DayView(Day day) {
-        this.day = day;
-        buildUI();
+    public DayViewBox(Day day) {
+        buildUI(day);
     }
 
-    private void buildUI() {
-        this.setMinSize(96, 512);
+    private void buildUI(Day day) {
+        configure(day);
+        addChildren(day);
+    }
+
+    private void addChildren(Day day) {
         this.getChildren().addAll(
                 new Label(day.getName()),
                 new Label(Integer.toString(day.getIndex()))
         );
-        for (Recipe recipe :
-                day) {
+        for (Recipe recipe: day) {
             this.getChildren().add(new RecipeDetailView(recipe));
         }
+    }
+
+    private void configure(Day day) {
+        this.setMinSize(96, 512);
     }
 }

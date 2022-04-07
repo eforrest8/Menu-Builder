@@ -8,7 +8,7 @@ package edu.bsu.cs222.menubuilder;
 import javafx.scene.layout.HBox;
 
 public class MenuEditor extends HBox {
-    private Menu menu;
+    private final Menu menu;
     public MenuEditor(Menu menu){
         this.menu = menu;
     }
@@ -16,7 +16,7 @@ public class MenuEditor extends HBox {
         this.setMinSize(640, 480);
         for (Day day :
                 menu) {
-            this.getChildren().add(new DayView(day));
+            this.getChildren().add(new DayViewBox(day));
 
         }
     }

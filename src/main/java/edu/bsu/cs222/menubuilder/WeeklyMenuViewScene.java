@@ -16,7 +16,7 @@ public class WeeklyMenuViewScene extends Scene {
     private static Parent buildUI(Menu menu) {
         HBox box = configureHBox();
         for (Day day: menu) {
-            box.getChildren().add(new DayView(day));
+            box.getChildren().add(new DayViewBox(day));
         }
         return new Group(box);
     }
