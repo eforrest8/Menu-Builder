@@ -1,12 +1,10 @@
 package edu.bsu.cs222.menubuilder;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
-public class RecipeAddMenu extends Dialog<Recipe> {
+public class RecipeAddMenu extends Dialog<WebRecipe> {
     public RecipeAddMenu() {
         buildUI();
     }

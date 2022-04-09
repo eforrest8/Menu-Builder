@@ -24,7 +24,7 @@ public class DayEditorBox extends VBox {
                 new Label(day.getName()),
                 new Label(Integer.toString(day.getIndex()))
         );
-        for (Recipe recipe: day) {
+        for (WebRecipe recipe: day) {
             this.getChildren().add(
                     new VBox(
                             new HBox(buildShiftButtons(day.indexOf(recipe)), new RecipeViewBox(recipe)),
@@ -64,7 +64,7 @@ public class DayEditorBox extends VBox {
         Button addRecipeButton = new Button("Add Recipe");
         addRecipeButton.setOnAction((e) -> {
             RecipeSearchDialog searchDialog = new RecipeSearchDialog();
-            Optional<Recipe> result = searchDialog.showAndWait();
+            Optional<WebRecipe> result = searchDialog.showAndWait();
             result.ifPresent(day::add);
             this.buildUI();
         });

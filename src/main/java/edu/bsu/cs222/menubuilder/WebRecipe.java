@@ -2,7 +2,7 @@ package edu.bsu.cs222.menubuilder;
 
 import java.net.*;
 
-public class WebRecipe implements RemoteRecipe {
+public class WebRecipe {
     private final String title;
     private URL recipeURL;
 
@@ -11,7 +11,6 @@ public class WebRecipe implements RemoteRecipe {
         setRecipeURL(url);
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
@@ -24,7 +23,6 @@ public class WebRecipe implements RemoteRecipe {
         }
     }
 
-    @Override
     public URI getURI() {
         try {
             return recipeURL.toURI();

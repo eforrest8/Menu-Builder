@@ -22,9 +22,9 @@ public class MenuBuilderApplication extends Application {
     }
 
     private void showRecipeSearchStage() {
-        Dialog<Recipe> recipeSearchStage = new RecipeAddMenu();
+        Dialog<WebRecipe> recipeSearchStage = new RecipeAddMenu();
         recipeSearchStage.show();
-        Recipe result = recipeSearchStage.getResult();
+        WebRecipe result = recipeSearchStage.getResult();
     }
 
 }

@@ -11,9 +11,9 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-public class RecipeSearchDialog extends Dialog<Recipe> {
+public class RecipeSearchDialog extends Dialog<WebRecipe> {
     private final DialogPane pane = new DialogPane();
-    private final ListView<Recipe> searchResults = new ListView<>();
+    private final ListView<WebRecipe> searchResults = new ListView<>();
     private final TextField searchInput = new TextField();
 
     public RecipeSearchDialog() {
@@ -42,7 +42,7 @@ public class RecipeSearchDialog extends Dialog<Recipe> {
         pane.setDisable(observable == null);
     }
 
-    private Recipe resultConverter(ButtonType buttonType) {
+    private WebRecipe resultConverter(ButtonType buttonType) {
         if (searchResults.getSelectionModel().getSelectedItem() == null
                 || buttonType.getButtonData().isCancelButton()) {
             return null;
@@ -63,7 +63,7 @@ public class RecipeSearchDialog extends Dialog<Recipe> {
     }
 
     private void updateSearchResults(Event event) {
-        List<Recipe> recipeCells = new EdamamApiProvider().search(searchInput.getText());
+        List<WebRecipe> recipeCells = new EdamamApiProvider().search(searchInput.getText());
         searchResults.setItems(FXCollections.observableList(recipeCells));
     }
 

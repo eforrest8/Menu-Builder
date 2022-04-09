@@ -1,16 +1,14 @@
 package edu.bsu.cs222.menubuilder;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class RecipeAddForm extends Dialog<Recipe> {
-    private TextField titleInput = new TextField();
-    private TextField urlInput = new TextField();
+public class RecipeAddForm extends Dialog<WebRecipe> {
+    private final TextField titleInput = new TextField();
+    private final TextField urlInput = new TextField();
 
     public RecipeAddForm() {
         buildUI();
@@ -29,7 +27,7 @@ public class RecipeAddForm extends Dialog<Recipe> {
         setResultConverter(this::convertResult);
     }
 
-    private Recipe convertResult(ButtonType buttonType) {
+    private WebRecipe convertResult(ButtonType buttonType) {
         if (buttonType.getButtonData().isCancelButton()) {
             return null;
         }

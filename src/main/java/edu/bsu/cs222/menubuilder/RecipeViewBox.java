@@ -14,24 +14,21 @@ import java.util.Locale;
 
 public class RecipeViewBox extends VBox {
 
-    public RecipeViewBox(Recipe recipe) {
+    public RecipeViewBox(WebRecipe recipe) {
         this.getChildren().addAll(
                 getTitleLabel(recipe),
                 getRecipeLocation(recipe)
         );
     }
 
-    private Label getTitleLabel(Recipe recipe) {
+    private Label getTitleLabel(WebRecipe recipe) {
         return new Label(recipe.getTitle());
     }
 
-    private Node getRecipeLocation(Recipe recipe) {
-        if (recipe instanceof RemoteRecipe remoteRecipe) {
-            Button button = new Button("View Recipe");
-            button.setOnAction(e -> openBrowserToURI(remoteRecipe.getURI()));
-            return button;
-        }
-        return new Label("test label");
+    private Node getRecipeLocation(WebRecipe recipe) {
+        Button button = new Button("View Recipe");
+        button.setOnAction(e -> openBrowserToURI(recipe.getURI()));
+        return button;
     }
 
     private void openBrowserToURI(URI uri) {
