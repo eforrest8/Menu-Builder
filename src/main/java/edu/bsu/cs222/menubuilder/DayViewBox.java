@@ -20,7 +20,7 @@ public class DayViewBox extends VBox {
                 new Label(Integer.toString(day.getIndex()))
         );
         for (Recipe recipe: day) {
-            this.getChildren().add(new RecipeDetailView(recipe));
+            this.getChildren().add(new RecipeViewBox(recipe));
         }
     }
 

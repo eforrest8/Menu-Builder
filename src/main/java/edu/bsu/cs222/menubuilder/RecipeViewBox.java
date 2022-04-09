@@ -12,9 +12,9 @@ import java.net.URI;
 import java.util.Locale;
 
 
-public class RecipeDetailView extends VBox {
+public class RecipeViewBox extends VBox {
 
-    public RecipeDetailView(Recipe recipe) {
+    public RecipeViewBox(Recipe recipe) {
         this.getChildren().addAll(
                 getTitleLabel(recipe),
                 getRecipeLocation(recipe)
@@ -27,7 +27,7 @@ public class RecipeDetailView extends VBox {
 
     private Node getRecipeLocation(Recipe recipe) {
         if (recipe instanceof RemoteRecipe remoteRecipe) {
-            Button button = new Button("View recipe in browser");
+            Button button = new Button("View Recipe");
             button.setOnAction(e -> openBrowserToURI(remoteRecipe.getURI()));
             return button;
         }

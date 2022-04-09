@@ -2,9 +2,14 @@ package edu.bsu.cs222.menubuilder;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class DayEditorBox extends VBox{
+import java.util.Collections;
+import java.util.Optional;
+
+public class DayEditorBox extends VBox {
+
     private final Day day;
 
     public DayEditorBox(Day day) {
@@ -13,19 +18,58 @@ public class DayEditorBox extends VBox{
     }
 
     private void buildUI() {
+        this.getChildren().clear();
         this.setMinSize(96, 512);
         this.getChildren().addAll(
                 new Label(day.getName()),
                 new Label(Integer.toString(day.getIndex()))
         );
         for (Recipe recipe: day) {
-            this.getChildren().add(new RecipeDetailView(recipe));
+            this.getChildren().add(
+                    new VBox(
+                            new HBox(buildShiftButtons(day.indexOf(recipe)), new RecipeViewBox(recipe)),
+                            buildRemoveButton(day.indexOf(recipe))));
         }
-        Button button1 = new Button("Open Editor");
-        button1.setOnAction((e) -> new DayEditorBox(day));
+        appendAddRecipeButton();
     }
-    private void setButtonFunctions(){
 
+    private Button buildRemoveButton(int index) {
+        Button removeButton = new Button("Remove Recipe");
+        removeButton.setOnAction( e -> {
+            day.remove(index);
+            buildUI();
+        });
+        return removeButton;
     }
+
+    private VBox buildShiftButtons(int index) {
+        Button shiftUp = new Button("⬆");
+        Button shiftDown = new Button("⬇");
+        shiftUp.setOnAction( e -> {
+            try {
+                Collections.swap(day, index, index - 1);
+                buildUI();
+            } catch (IndexOutOfBoundsException ignored) {}
+        });
+        shiftDown.setOnAction( e -> {
+            try {
+                Collections.swap(day, index, index + 1);
+                buildUI();
+            } catch (IndexOutOfBoundsException ignored) {}
+        });
+        return new VBox(shiftUp, shiftDown);
+    }
+
+    private void appendAddRecipeButton() {
+        Button addRecipeButton = new Button("Add Recipe");
+        addRecipeButton.setOnAction((e) -> {
+            RecipeSearchDialog searchDialog = new RecipeSearchDialog();
+            Optional<Recipe> result = searchDialog.showAndWait();
+            result.ifPresent(day::add);
+            this.buildUI();
+        });
+        this.getChildren().add(addRecipeButton);
+    }
+
 }
 
