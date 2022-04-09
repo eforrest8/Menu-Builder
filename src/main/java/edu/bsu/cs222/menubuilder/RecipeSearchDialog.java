@@ -4,16 +4,12 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+
 import java.util.List;
-import java.util.Optional;
 
 public class RecipeSearchDialog extends Dialog<Recipe> {
     private final DialogPane pane = new DialogPane();
@@ -30,12 +26,14 @@ public class RecipeSearchDialog extends Dialog<Recipe> {
         searchResults.setMinSize(256, 256);
         ButtonType okButtonType = new ButtonType("Choose this recipe", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        VBox.setVgrow(searchResults, Priority.ALWAYS);
+        VBox.setMargin(searchResults, new Insets(4));
         pane.getButtonTypes().addAll(okButtonType, cancelButtonType);
+        pane.setMinSize(512, 512);
         pane.getChildren().add(
                 new VBox(
                         buildInputBar(),
                         searchResults));
-        pane.setMinSize(256, 512);
         this.setDialogPane(pane);
         this.setResultConverter(this::resultConverter);
     }
