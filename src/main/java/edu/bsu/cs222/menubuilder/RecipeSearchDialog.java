@@ -3,15 +3,21 @@ package edu.bsu.cs222.menubuilder;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import java.util.List;
 import java.util.Optional;
 
 public class RecipeSearchDialog extends Dialog<Recipe> {
-    private final ListView<RecipeSearchResultCell> searchResults = new ListView<>();
     private final DialogPane pane = new DialogPane();
+    private final ListView<Recipe> searchResults = new ListView<>();
     private final TextField searchInput = new TextField();
 
     public RecipeSearchDialog() {
@@ -20,13 +26,15 @@ public class RecipeSearchDialog extends Dialog<Recipe> {
 
     private void buildUI() {
         searchResults.getSelectionModel().selectedIndexProperty().addListener(this::listenToSelection);
+        searchResults.setCellFactory( listView -> new RecipeSearchResultCell());
         searchResults.setMinSize(256, 256);
         ButtonType okButtonType = new ButtonType("Choose this recipe", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         pane.getButtonTypes().addAll(okButtonType, cancelButtonType);
-        pane.getChildren().addAll(
-                buildInputBar(),
-                searchResults);
+        pane.getChildren().add(
+                new VBox(
+                        buildInputBar(),
+                        searchResults));
         pane.setMinSize(256, 512);
         this.setDialogPane(pane);
         this.setResultConverter(this::resultConverter);
@@ -41,11 +49,11 @@ public class RecipeSearchDialog extends Dialog<Recipe> {
                 || buttonType.getButtonData().isCancelButton()) {
             return null;
         }
-        return searchResults.getSelectionModel().getSelectedItem().getItem();
+        return searchResults.getSelectionModel().getSelectedItem();
     }
 
     private HBox buildInputBar() {
-        searchInput.setMinWidth(128);
+        searchInput.setMinWidth(196);
         searchInput.setPromptText("Enter search query");
         Button searchButton = new Button("Search");
         searchButton.setDefaultButton(true);
@@ -57,11 +65,7 @@ public class RecipeSearchDialog extends Dialog<Recipe> {
     }
 
     private void updateSearchResults(Event event) {
-        List<RecipeSearchResultCell> recipeCells = new EdamamApiProvider()
-                .search(searchInput.getText())
-                .stream()
-                .map(RecipeSearchResultCell::new)
-                .toList();
+        List<Recipe> recipeCells = new EdamamApiProvider().search(searchInput.getText());
         searchResults.setItems(FXCollections.observableList(recipeCells));
     }
 

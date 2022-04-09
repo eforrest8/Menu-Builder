@@ -3,7 +3,7 @@ package edu.bsu.cs222.menubuilder;
 import java.net.*;
 
 public class WebRecipe implements RemoteRecipe {
-    private String title = "test default title xd";
+    private final String title;
     private URL recipeURL;
 
     public WebRecipe(String title, String url) {
@@ -33,4 +33,5 @@ public class WebRecipe implements RemoteRecipe {
         }
         return URI.create("");
     }
+
 }
