@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class WeeklyMenuEditorGroup extends Group {
 
@@ -31,17 +33,36 @@ public class WeeklyMenuEditorGroup extends Group {
     }
 
     private ButtonBar buildButtonBar() {
+        EdamamAPI eda = new EdamamAPI();
         ButtonBar bar = new ButtonBar();
         bar.getButtons().addAll(
                 buildButton("Save & Close", ButtonBar.ButtonData.APPLY, this::saveAndClose),
                 buildButton("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE,
-                        (e) -> this.getScene().setRoot(new WeeklyMenuViewGroup(initialMenu)))
+                        (e) -> this.getScene().setRoot(new WeeklyMenuViewGroup(initialMenu))),
+                buildButton("Google Search", ButtonBar.ButtonData.APPLY, this::openBrowse)
         );
         return bar;
     }
 
     private void saveAndClose(ActionEvent event) {
+        System.out.println("1");
         this.getScene().setRoot(new WeeklyMenuViewGroup(editedMenu));
+    }
+
+    private void openBrowse(ActionEvent event) {
+        System.out.println("1");
+        URL url = null;
+        try {
+            url = new URL("https://www.google.com/search?q=lasagna");
+        } catch (Exception e) {
+            System.out.println("Wrong URL Format");
+        }
+        EdamamAPI eda = new EdamamAPI();
+        try {
+            eda.gSearch(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private Button buildButton(String text, ButtonBar.ButtonData buttonData, EventHandler<ActionEvent> onAction) {
@@ -65,4 +86,5 @@ public class WeeklyMenuEditorGroup extends Group {
         box.setMinSize(640, 480);
         return box;
     }
+
 }

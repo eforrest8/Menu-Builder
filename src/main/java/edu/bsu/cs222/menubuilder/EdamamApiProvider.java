@@ -12,4 +12,6 @@ public class EdamamApiProvider implements RecipeProvider {
                         "http://hasthelargehadroncolliderdestroyedtheworldyet.com/")
                 );
     }
+
+
 }
