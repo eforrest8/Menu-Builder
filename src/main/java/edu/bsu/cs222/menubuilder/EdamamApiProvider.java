@@ -1,24 +1,24 @@
 package edu.bsu.cs222.menubuilder;
 
+import com.jayway.jsonpath.*;
+
 import java.io.*;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 public class EdamamApiProvider implements RecipeProvider {
+
+    private final String BASE_URL = "https://api.edamam.com/api/recipes/v2?type=public";
     private String appId;
     private String apiKey;
+    private String partialUrl;
 
     public EdamamApiProvider() {
         getApiData();
-    }
-
-    @Override
-    public List<Recipe> search(String query) {
-        return List.of(
-                new WebRecipe("google", "https://google.com"),
-                new WebRecipe("binf", "https://bing.com"),
-                new WebRecipe("has the large hadron collider destroyed the world yet?",
-                        "http://hasthelargehadroncolliderdestroyedtheworldyet.com/")
-                );
+        buildPartialUrlString();
     }
 
     private void getApiData() {
@@ -30,6 +30,32 @@ public class EdamamApiProvider implements RecipeProvider {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<WebRecipe> search(String query) {
+        appendQueryToPartialUrl(URLEncoder.encode(query, StandardCharsets.UTF_8));
+        String finalUrl = BASE_URL + partialUrl;
+        try {
+            DocumentContext context = JsonPath.parse(new URL(finalUrl).openConnection().getInputStream());
+            List<Map<String, String>> list = context.read("$.hits.*.recipe");
+            return list.stream().map( map -> new WebRecipe(map.get("label"), map.get("shareAs"))).toList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return List.of();
+    }
+
+    private void buildPartialUrlString() {
+        partialUrl =
+                "&app_id=" + appId +
+                "&app_key=" + apiKey +
+                "&field=label" +
+                "&field=shareAs";
+    }
+
+    private void appendQueryToPartialUrl(String query) {
+        partialUrl = partialUrl + "&q=" + query;
     }
 
 }
