@@ -1,46 +1,34 @@
 package edu.bsu.cs222.menubuilder;
 
-import javafx.stage.FileChooser;
-import javafx.stage.Window;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 
 public class MenuFileManager {
 
-    public void saveFile(Window window) {
-        File result = showSaveFile(window);
+    void writeFile(File file) {
+        if (file == null) {
+            return;
+        }
         Menu menu = MenuSingleton.menu;
-        try (FileWriter writer = new FileWriter(result)) {
+        try (FileWriter writer = new FileWriter(file)) {
             writer.write(new MenuSerializer(menu).serialize());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private File showSaveFile(Window window) {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Save File");
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json Files", "*.json"));
-        return chooser.showSaveDialog(window);
-    }
-
-    public void loadFile(Window window) {
-        File result = showOpenFile(window);
+    public void loadFile(File file) {
+        if (file == null) {
+            return;
+        }
         SavedMenuParser parser = new SavedMenuParser();
         try {
-            String jsonString = Files.readString(result.toPath());
+            String jsonString = Files.readString(file.toPath());
             MenuSingleton.menu = parser.parse(jsonString);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    private File showOpenFile(Window window) {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Open File");
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json Files", "*.json"));
-        return chooser.showOpenDialog(window);
-    }
-
 }

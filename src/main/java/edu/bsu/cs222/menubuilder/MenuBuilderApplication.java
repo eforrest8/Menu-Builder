@@ -22,7 +22,7 @@ public class MenuBuilderApplication extends Application {
         if (windowEvent.getEventType() != WindowEvent.WINDOW_CLOSE_REQUEST) {
             return;
         }
-        MenuFileManager fileManager = new MenuFileManager();
+        SaveLoadManager fileManager = new SaveLoadManager();
         fileManager.saveFile(stage.getOwner());
         Platform.exit();
     }

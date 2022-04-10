@@ -54,7 +54,7 @@ public class WeeklyMenuViewGroup extends Group {
         Button loadButton = new Button("Load Menu");
         ButtonBar.setButtonData(loadButton, ButtonBar.ButtonData.RIGHT);
         loadButton.setOnAction((e) -> {
-            new MenuFileManager().loadFile(this.getScene().getWindow());
+            new SaveLoadManager().loadFile(this.getScene().getWindow());
             rebuildUI();
         });
         return loadButton;
