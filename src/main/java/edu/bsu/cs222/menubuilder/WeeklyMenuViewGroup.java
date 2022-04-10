@@ -16,7 +16,7 @@ public class WeeklyMenuViewGroup extends Group {
 
     private void buildUI() {
         HBox box = configureHBox();
-        for (WeekDay day: MenuSingleton.menu) {
+        for (WeekDay day: MenuSingleton.menu.days()) {
             box.getChildren().add(new DayViewBox(day));
         }
         this.getChildren().add(new VBox(buildButtonBar(), box));
@@ -54,7 +54,7 @@ public class WeeklyMenuViewGroup extends Group {
         Button loadButton = new Button("Load Menu");
         ButtonBar.setButtonData(loadButton, ButtonBar.ButtonData.RIGHT);
         loadButton.setOnAction((e) -> {
-            new MenuFileManager().loadFile();
+            new MenuFileManager().loadFile(this.getScene().getWindow());
             rebuildUI();
         });
         return loadButton;

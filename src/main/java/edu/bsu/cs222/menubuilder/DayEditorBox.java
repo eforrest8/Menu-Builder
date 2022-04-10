@@ -21,11 +21,11 @@ public class DayEditorBox extends VBox {
         this.getChildren().clear();
         this.setMinSize(96, 512);
         this.getChildren().add(new Label(day.getName()));
-        for (WebRecipe recipe: day) {
+        for (WebRecipe recipe: day.recipes()) {
             this.getChildren().add(
                     new VBox(
-                            new HBox(buildShiftButtons(day.indexOf(recipe)), new RecipeViewBox(recipe)),
-                            buildRemoveButton(day.indexOf(recipe))));
+                            new HBox(buildShiftButtons(day.recipes().indexOf(recipe)), new RecipeViewBox(recipe)),
+                            buildRemoveButton(day.recipes().indexOf(recipe))));
         }
         appendAddRecipeButton();
     }
@@ -33,7 +33,7 @@ public class DayEditorBox extends VBox {
     private Button buildRemoveButton(int index) {
         Button removeButton = new Button("Remove Recipe");
         removeButton.setOnAction( e -> {
-            day.remove(index);
+            day.recipes().remove(index);
             buildUI();
         });
         return removeButton;
@@ -44,13 +44,13 @@ public class DayEditorBox extends VBox {
         Button shiftDown = new Button("⬇");
         shiftUp.setOnAction( e -> {
             try {
-                Collections.swap(day, index, index - 1);
+                Collections.swap(day.recipes(), index, index - 1);
                 buildUI();
             } catch (IndexOutOfBoundsException ignored) {}
         });
         shiftDown.setOnAction( e -> {
             try {
-                Collections.swap(day, index, index + 1);
+                Collections.swap(day.recipes(), index, index + 1);
                 buildUI();
             } catch (IndexOutOfBoundsException ignored) {}
         });
@@ -62,7 +62,7 @@ public class DayEditorBox extends VBox {
         addRecipeButton.setOnAction((e) -> {
             RecipeSearchDialog searchDialog = new RecipeSearchDialog();
             Optional<WebRecipe> result = searchDialog.showAndWait();
-            result.ifPresent(day::add);
+            result.ifPresent(day.recipes()::add);
             this.buildUI();
         });
         this.getChildren().add(addRecipeButton);

@@ -3,9 +3,8 @@ package edu.bsu.cs222.menubuilder;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
 
 public class MenuFileManager {
 
@@ -26,7 +25,15 @@ public class MenuFileManager {
         return chooser.showSaveDialog(window);
     }
 
-    public void loadFile() {
+    public void loadFile(Window window) {
+        File result = showOpenFile(window);
+        SavedMenuParser parser = new SavedMenuParser();
+        try {
+            String jsonString = Files.readString(result.toPath());
+            MenuSingleton.menu = parser.parse(jsonString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private File showOpenFile(Window window) {

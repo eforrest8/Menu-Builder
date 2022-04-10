@@ -11,7 +11,7 @@ public class MenuSerializer {
     }
 
     public String serialize() {
-        return "{\"days\": [" + menu.stream().collect(StringBuilder::new, this::serializeDay, StringBuilder::append) + "]}";
+        return "{\"days\": [" + menu.days().stream().collect(StringBuilder::new, this::serializeDay, StringBuilder::append) + "]}";
     }
 
     private void serializeDay(StringBuilder stringBuilder, WeekDay day) {
@@ -19,9 +19,9 @@ public class MenuSerializer {
         stringBuilder.append("{")
                 .append("\"name\": \"").append(day.getName()).append("\",")
                 .append("\"recipes\": [")
-                .append(day.stream().collect(StringBuilder::new, this::serializeRecipe, StringBuilder::append))
+                .append(day.recipes().stream().collect(StringBuilder::new, this::serializeRecipe, StringBuilder::append))
                 .append("]}")
-                .append(menu.indexOf(day) == menu.size() - 1 ? "" : ",");
+                .append(menu.days().indexOf(day) == menu.days().size() - 1 ? "" : ",");
     }
 
     private void serializeRecipe(StringBuilder stringBuilder, WebRecipe webRecipe) {
@@ -29,6 +29,6 @@ public class MenuSerializer {
                 .append("\"title\": \"").append(webRecipe.getTitle()).append("\",")
                 .append("\"url\": \"").append(webRecipe.getURI()).append("\"")
                 .append("}")
-                .append(currentDay.indexOf(webRecipe) == currentDay.size() - 1 ? "" : ",");
+                .append(currentDay.recipes().indexOf(webRecipe) == currentDay.recipes().size() - 1 ? "" : ",");
     }
 }
