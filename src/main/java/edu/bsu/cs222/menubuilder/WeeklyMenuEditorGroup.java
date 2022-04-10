@@ -7,24 +7,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-
-import java.io.File;
 
 public class WeeklyMenuEditorGroup extends Group {
 
-    private final Menu initialMenu;
     private final Menu editedMenu;
 
-    public WeeklyMenuEditorGroup(Menu menu) {
-        initialMenu = menu;
-        editedMenu = menu;
-        buildUI(menu);
+    public WeeklyMenuEditorGroup() {
+        editedMenu = MenuSingleton.menu;
+        buildUI();
     }
 
-    private void buildUI(Menu menu) {
+    private void buildUI() {
         HBox box = configureHBox();
-        for (Day day: menu) {
+        for (Day day: editedMenu) {
             box.getChildren().add(new DayEditorBox(day));
         }
         this.getChildren().add(new VBox(buildButtonBar(), box));
@@ -35,14 +30,14 @@ public class WeeklyMenuEditorGroup extends Group {
         bar.getButtons().addAll(
                 buildButton("Save & Close", ButtonBar.ButtonData.APPLY, this::saveAndClose),
                 buildButton("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE,
-                        (e) -> this.getScene().setRoot(new WeeklyMenuViewGroup(initialMenu)))
+                        (e) -> this.getScene().setRoot(new WeeklyMenuViewGroup()))
         );
         return bar;
     }
 
     private void saveAndClose(ActionEvent event) {
-        System.out.println("1");
-        this.getScene().setRoot(new WeeklyMenuViewGroup(editedMenu));
+        MenuSingleton.menu = editedMenu;
+        this.getScene().setRoot(new WeeklyMenuViewGroup());
     }
 
     private Button buildButton(String text, ButtonBar.ButtonData buttonData, EventHandler<ActionEvent> onAction) {
@@ -50,15 +45,6 @@ public class WeeklyMenuEditorGroup extends Group {
         ButtonBar.setButtonData(button, buttonData);
         button.setOnAction(onAction);
         return button;
-    }
-
-    private void chooseMenuFile() {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Open Menu File");
-        chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Json Files", "*.json")
-        );
-        File result = chooser.showOpenDialog(this.getScene().getWindow());
     }
 
     private static HBox configureHBox() {
