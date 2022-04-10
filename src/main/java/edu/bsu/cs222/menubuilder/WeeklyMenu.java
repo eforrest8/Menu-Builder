@@ -7,7 +7,7 @@ import java.util.prefs.Preferences;
 
 public class WeeklyMenu extends Menu {
 
-    List<DayOfWeek> daysOfWeek = List.of(DayOfWeek.values());
+    final List<DayOfWeek> daysOfWeek = List.of(DayOfWeek.values());
 
     public WeeklyMenu() {
         int offset = Integer.parseInt(

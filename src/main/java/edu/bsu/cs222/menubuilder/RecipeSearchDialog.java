@@ -2,7 +2,6 @@ package edu.bsu.cs222.menubuilder;
 
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -56,13 +55,13 @@ public class RecipeSearchDialog extends Dialog<WebRecipe> {
         Button searchButton = new Button("Search");
         searchButton.setDefaultButton(true);
         searchButton.setMinWidth(64);
-        searchButton.setOnAction(this::updateSearchResults);
+        searchButton.setOnAction(event -> updateSearchResults());
         HBox inputBar = new HBox();
         inputBar.getChildren().addAll(searchInput, searchButton);
         return inputBar;
     }
 
-    private void updateSearchResults(Event event) {
+    private void updateSearchResults() {
         List<WebRecipe> recipeCells = new EdamamApiProvider().search(searchInput.getText());
         searchResults.setItems(FXCollections.observableList(recipeCells));
     }

@@ -28,14 +28,14 @@ public class WeeklyMenuEditorGroup extends Group {
     private ButtonBar buildButtonBar() {
         ButtonBar bar = new ButtonBar();
         bar.getButtons().addAll(
-                buildButton("Save & Close", ButtonBar.ButtonData.APPLY, this::saveAndClose),
+                buildButton("Save & Close", ButtonBar.ButtonData.APPLY, event -> saveAndClose()),
                 buildButton("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE,
                         (e) -> this.getScene().setRoot(new WeeklyMenuViewGroup()))
         );
         return bar;
     }
 
-    private void saveAndClose(ActionEvent event) {
+    private void saveAndClose() {
         MenuSingleton.menu = editedMenu;
         this.getScene().setRoot(new WeeklyMenuViewGroup());
     }

@@ -10,7 +10,7 @@ public class DayViewBox extends VBox {
     }
 
     private void buildUI(WeekDay day) {
-        configure(day);
+        configure();
         addChildren(day);
     }
 
@@ -21,7 +21,7 @@ public class DayViewBox extends VBox {
         }
     }
 
-    private void configure(WeekDay day) {
+    private void configure() {
         this.setMinSize(96, 512);
     }
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class MenuSerializerTest {
 
-    MenuSerializer serializer = new MenuSerializer(initializeMenu());
+    final MenuSerializer serializer = new MenuSerializer(initializeMenu());
 
     private Menu initializeMenu() {
         Menu menu = new Menu();

@@ -5,9 +5,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.layout.HBox;
 
 public class RecipeAddMenu extends Dialog<WebRecipe> {
-    public RecipeAddMenu() {
-        buildUI();
-    }
 
     private void buildUI() {
         HBox container = new HBox();
