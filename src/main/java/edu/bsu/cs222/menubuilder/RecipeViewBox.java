@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.VBox;
 
 import java.awt.*;
@@ -22,7 +23,11 @@ public class RecipeViewBox extends VBox {
     }
 
     private Label getTitleLabel(WebRecipe recipe) {
-        return new Label(recipe.getTitle());
+        Label title = new Label(recipe.getTitle());
+        title.setWrapText(true);
+        title.setTextOverrun(OverrunStyle.WORD_ELLIPSIS);
+        title.setMaxSize(128, 96);
+        return title;
     }
 
     private Node getRecipeLocation(WebRecipe recipe) {
