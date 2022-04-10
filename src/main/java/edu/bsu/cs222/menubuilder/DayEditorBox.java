@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public class DayEditorBox extends VBox {
 
-    private final Day day;
+    private final WeekDay day;
 
-    public DayEditorBox(Day day) {
+    public DayEditorBox(WeekDay day) {
         this.day = day;
         buildUI();
     }

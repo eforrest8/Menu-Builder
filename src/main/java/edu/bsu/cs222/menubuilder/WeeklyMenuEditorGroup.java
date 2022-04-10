@@ -19,7 +19,7 @@ public class WeeklyMenuEditorGroup extends Group {
 
     private void buildUI() {
         HBox box = configureHBox();
-        for (Day day: editedMenu) {
+        for (WeekDay day: editedMenu) {
             box.getChildren().add(new DayEditorBox(day));
         }
         this.getChildren().add(new VBox(buildButtonBar(), box));

@@ -14,7 +14,7 @@ public class MenuEditor extends HBox {
     }
     private void buildUI() {
         this.setMinSize(640, 480);
-        for (Day day: menu) {
+        for (WeekDay day: menu) {
             this.getChildren().add(new DayViewBox(day));
 
         }

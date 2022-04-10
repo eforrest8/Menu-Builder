@@ -4,7 +4,7 @@ public class MenuSerializer {
 
     private final Menu menu;
 
-    private Day currentDay;
+    private WeekDay currentDay;
 
     public MenuSerializer(Menu menu) {
         this.menu = menu;
@@ -14,7 +14,7 @@ public class MenuSerializer {
         return "{\"days\": [" + menu.stream().collect(StringBuilder::new, this::serializeDay, StringBuilder::append) + "]}";
     }
 
-    private void serializeDay(StringBuilder stringBuilder, Day day) {
+    private void serializeDay(StringBuilder stringBuilder, WeekDay day) {
         currentDay = day;
         stringBuilder.append("{")
                 .append("\"name\": \"").append(day.getName()).append("\",")
