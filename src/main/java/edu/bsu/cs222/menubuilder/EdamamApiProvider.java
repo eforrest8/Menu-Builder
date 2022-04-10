@@ -9,9 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-public class EdamamApiProvider implements RecipeProvider {
+public class EdamamApiProvider {
 
-    private final String BASE_URL = "https://api.edamam.com/api/recipes/v2?type=public";
+    private static final String BASE_URL = "https://api.edamam.com/api/recipes/v2?type=public";
     private String appId;
     private String apiKey;
     private String partialUrl;
@@ -32,7 +32,6 @@ public class EdamamApiProvider implements RecipeProvider {
         }
     }
 
-    @Override
     public List<WebRecipe> search(String query) {
         appendQueryToPartialUrl(URLEncoder.encode(query, StandardCharsets.UTF_8));
         String finalUrl = BASE_URL + partialUrl;
