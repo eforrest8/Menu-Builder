@@ -18,6 +18,7 @@ version '0.1.0'
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -25,6 +26,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
     implementation 'com.jayway.jsonpath:json-path:2.7.0'
+    implementation 'com.github.hervegirod:fxsvgimage:0.6.1'
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 }
 
