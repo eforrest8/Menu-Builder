@@ -1,6 +1,7 @@
 package edu.bsu.cs222.menubuilder;
 
 import java.net.*;
+import java.util.Objects;
 
 public class WebRecipe {
     private final String title;
@@ -32,4 +33,16 @@ public class WebRecipe {
         return URI.create("");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WebRecipe webRecipe = (WebRecipe) o;
+        return title.equals(webRecipe.title) && recipeURL.equals(webRecipe.recipeURL);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, recipeURL);
+    }
 }
