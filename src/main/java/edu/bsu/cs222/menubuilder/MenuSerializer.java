@@ -1,8 +1,5 @@
 package edu.bsu.cs222.menubuilder;
 
-import net.minidev.json.JSONObject;
-import net.minidev.json.JSONStyle;
-
 public class MenuSerializer {
 
     private final Menu menu;
