@@ -15,10 +15,7 @@ public class DayViewBox extends VBox {
     }
 
     private void addChildren(Day day) {
-        this.getChildren().addAll(
-                new Label(day.getName()),
-                new Label(Integer.toString(day.getIndex()))
-        );
+        this.getChildren().add(new Label(day.getName()));
         for (WebRecipe recipe: day) {
             this.getChildren().add(new RecipeViewBox(recipe));
         }

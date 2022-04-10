@@ -20,10 +20,7 @@ public class DayEditorBox extends VBox {
     private void buildUI() {
         this.getChildren().clear();
         this.setMinSize(96, 512);
-        this.getChildren().addAll(
-                new Label(day.getName()),
-                new Label(Integer.toString(day.getIndex()))
-        );
+        this.getChildren().add(new Label(day.getName()));
         for (WebRecipe recipe: day) {
             this.getChildren().add(
                     new VBox(
