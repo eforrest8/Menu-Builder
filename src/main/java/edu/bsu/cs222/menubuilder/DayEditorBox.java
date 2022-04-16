@@ -10,49 +10,45 @@ import java.util.Optional;
 
 public class DayEditorBox extends VBox {
 
-    private final WeekDay day;
+    private final Menu menu;
 
-    public DayEditorBox(WeekDay day) {
-        this.day = day;
+    public DayEditorBox(Menu menu) {
+        this.menu = menu;
         buildUI();
     }
 
     private void buildUI() {
         this.getChildren().clear();
         this.setMinSize(96, 512);
-        this.getChildren().add(new Label(day.getName()));
-        for (WebRecipe recipe: day.recipes()) {
+        this.getChildren().add(new Label(menu.getName()));
+        for (WebRecipe recipe: menu.getRecipes()) {
             this.getChildren().add(
                     new VBox(
-                            new HBox(buildShiftButtons(day.recipes().indexOf(recipe)), new RecipeViewBox(recipe)),
-                            buildRemoveButton(day.recipes().indexOf(recipe))));
+                            new HBox(buildShiftButtons(recipe), new RecipeViewBox(recipe)),
+                            buildRemoveButton(recipe)));
         }
         appendAddRecipeButton();
     }
 
-    private Button buildRemoveButton(int index) {
+    private Button buildRemoveButton(WebRecipe recipe) {
         Button removeButton = new Button("Remove Recipe");
         removeButton.setOnAction( e -> {
-            day.recipes().remove(index);
+            menu.removeRecipe(recipe);
             buildUI();
         });
         return removeButton;
     }
 
-    private VBox buildShiftButtons(int index) {
-        Button shiftUp = new Button("⬆");
-        Button shiftDown = new Button("⬇");
+    private VBox buildShiftButtons(WebRecipe recipe) {
+        Button shiftUp = new Button("↑");
+        Button shiftDown = new Button("↓");
         shiftUp.setOnAction( e -> {
-            try {
-                Collections.swap(day.recipes(), index, index - 1);
-                buildUI();
-            } catch (IndexOutOfBoundsException ignored) {}
+            menu.shiftRecipeUp(recipe);
+            buildUI();
         });
         shiftDown.setOnAction( e -> {
-            try {
-                Collections.swap(day.recipes(), index, index + 1);
-                buildUI();
-            } catch (IndexOutOfBoundsException ignored) {}
+            menu.shiftRecipeDown(recipe);
+            buildUI();
         });
         return new VBox(shiftUp, shiftDown);
     }
@@ -62,7 +58,7 @@ public class DayEditorBox extends VBox {
         addRecipeButton.setOnAction((e) -> {
             RecipeSearchDialog searchDialog = new RecipeSearchDialog();
             Optional<WebRecipe> result = searchDialog.showAndWait();
-            result.ifPresent(day.recipes()::add);
+            result.ifPresent(menu::addRecipe);
             this.buildUI();
         });
         this.getChildren().add(addRecipeButton);

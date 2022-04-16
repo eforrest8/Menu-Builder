@@ -1,7 +1,7 @@
 package edu.bsu.cs222.menubuilder;
 
 public final class MenuSingleton {
-    public static Menu menu = new WeeklyMenuBuilder().buildWeeklyMenu();
+    public static Schedule schedule = new WeeklyScheduleBuilder().buildWeeklySchedule();
 
     private MenuSingleton() {}
 }

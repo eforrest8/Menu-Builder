@@ -45,4 +45,12 @@ public class WebRecipe {
     public int hashCode() {
         return Objects.hash(title, recipeURL);
     }
+
+    @Override
+    public String toString() {
+        return "WebRecipe{" +
+                "title='" + title + '\'' +
+                ", recipeURL=" + recipeURL +
+                '}';
+    }
 }

@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class EdamamApiProvider {
 
@@ -23,7 +24,7 @@ public class EdamamApiProvider {
 
     private void getApiData() {
         InputStream apiInput = getClass().getClassLoader().getResourceAsStream("api.txt");
-        assert apiInput != null;
+        Objects.requireNonNull(apiInput);
         try (BufferedReader apiReader = new BufferedReader(new InputStreamReader(apiInput))) {
             appId = apiReader.readLine();
             apiKey = apiReader.readLine();

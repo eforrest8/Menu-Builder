@@ -11,9 +11,9 @@ public class MenuFileManager {
         if (file == null) {
             return;
         }
-        Menu menu = MenuSingleton.menu;
+        Schedule schedule = MenuSingleton.schedule;
         try (FileWriter writer = new FileWriter(file)) {
-            writer.write(new MenuSerializer(menu).serialize());
+            writer.write(new MenuSerializer(schedule).serialize());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,7 +26,7 @@ public class MenuFileManager {
         SavedMenuParser parser = new SavedMenuParser();
         try {
             String jsonString = Files.readString(file.toPath());
-            MenuSingleton.menu = parser.parse(jsonString);
+            MenuSingleton.schedule = parser.parse(jsonString);
         } catch (IOException e) {
             e.printStackTrace();
         }

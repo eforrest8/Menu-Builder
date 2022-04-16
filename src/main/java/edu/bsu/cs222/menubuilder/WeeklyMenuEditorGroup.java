@@ -10,16 +10,16 @@ import javafx.scene.layout.VBox;
 
 public class WeeklyMenuEditorGroup extends Group {
 
-    private final Menu editedMenu;
+    private final Schedule editedSchedule;
 
     public WeeklyMenuEditorGroup() {
-        editedMenu = MenuSingleton.menu;
+        editedSchedule = MenuSingleton.schedule;
         buildUI();
     }
 
     private void buildUI() {
         HBox box = configureHBox();
-        for (WeekDay day: editedMenu.days()) {
+        for (Menu day: editedSchedule.getDays()) {
             box.getChildren().add(new DayEditorBox(day));
         }
         this.getChildren().add(new VBox(buildButtonBar(), box));
@@ -36,7 +36,7 @@ public class WeeklyMenuEditorGroup extends Group {
     }
 
     private void saveAndClose() {
-        MenuSingleton.menu = editedMenu;
+        MenuSingleton.schedule = editedSchedule;
         this.getScene().setRoot(new WeeklyMenuViewGroup());
     }
 

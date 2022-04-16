@@ -5,18 +5,18 @@ import javafx.scene.layout.VBox;
 
 public class DayViewBox extends VBox {
 
-    public DayViewBox(WeekDay day) {
+    public DayViewBox(Menu day) {
         buildUI(day);
     }
 
-    private void buildUI(WeekDay day) {
+    private void buildUI(Menu day) {
         configure();
         addChildren(day);
     }
 
-    private void addChildren(WeekDay day) {
+    private void addChildren(Menu day) {
         this.getChildren().add(new Label(day.getName()));
-        for (WebRecipe recipe: day.recipes()) {
+        for (WebRecipe recipe: day.getRecipes()) {
             this.getChildren().add(new RecipeViewBox(recipe));
         }
     }

@@ -2,26 +2,26 @@ package edu.bsu.cs222.menubuilder;
 
 public class MenuSerializer {
 
-    private final Menu menu;
+    private final Schedule schedule;
 
-    private WeekDay currentDay;
+    private Menu currentDay;
 
-    public MenuSerializer(Menu menu) {
-        this.menu = menu;
+    public MenuSerializer(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public String serialize() {
-        return "{\"days\": [" + menu.days().stream().collect(StringBuilder::new, this::serializeDay, StringBuilder::append) + "]}";
+        return "{\"days\": [" + schedule.getDays().stream().collect(StringBuilder::new, this::serializeDay, StringBuilder::append) + "]}";
     }
 
-    private void serializeDay(StringBuilder stringBuilder, WeekDay day) {
+    private void serializeDay(StringBuilder stringBuilder, Menu day) {
         currentDay = day;
         stringBuilder.append("{")
                 .append("\"name\": \"").append(day.getName()).append("\",")
                 .append("\"recipes\": [")
-                .append(day.recipes().stream().collect(StringBuilder::new, this::serializeRecipe, StringBuilder::append))
+                .append(day.getRecipes().stream().collect(StringBuilder::new, this::serializeRecipe, StringBuilder::append))
                 .append("]}")
-                .append(menu.days().indexOf(day) == menu.days().size() - 1 ? "" : ",");
+                .append(schedule.getDays().indexOf(day) == schedule.getDays().size() - 1 ? "" : ",");
     }
 
     private void serializeRecipe(StringBuilder stringBuilder, WebRecipe webRecipe) {
@@ -29,6 +29,6 @@ public class MenuSerializer {
                 .append("\"title\": \"").append(webRecipe.getTitle()).append("\",")
                 .append("\"url\": \"").append(webRecipe.getURI()).append("\"")
                 .append("}")
-                .append(currentDay.recipes().indexOf(webRecipe) == currentDay.recipes().size() - 1 ? "" : ",");
+                .append(currentDay.getRecipes().indexOf(webRecipe) == currentDay.getRecipes().size() - 1 ? "" : ",");
     }
 }
