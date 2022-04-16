@@ -19,10 +19,6 @@ public class Schedule {
         this.days = days;
     }
 
-    public void addDay(Menu day) {
-        days.add(day);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
