@@ -13,7 +13,7 @@ public class SavedMenuParser {
         DocumentContext context = JsonPath.using(Configuration.defaultConfiguration())
                 .parse(jsonString);
 
-        Schedule result = new Schedule();
+        List<Menu> menuList = new LinkedList<>();
         for (int i = 0; i < context.read("$.days.length()", Integer.class); i++) {
             List<WebRecipe> recipeList = new LinkedList<>();
             for (int j = 0; j < context.read("$.days[" + i + "].recipes.length()", Integer.class); j++) {
@@ -22,10 +22,10 @@ public class SavedMenuParser {
                 recipeList.add(new WebRecipe(title, url));
             }
             String name = context.read("$.days[" + i + "].name", String.class);
-            result.getDays().add(new Menu(DayOfWeek.valueOf(name), recipeList));
+            menuList.add(new Menu(DayOfWeek.valueOf(name), recipeList));
         }
 
-        return result;
+        return new Schedule(menuList);
     }
 
 }

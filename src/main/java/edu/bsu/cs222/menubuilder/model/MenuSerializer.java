@@ -11,7 +11,7 @@ public class MenuSerializer {
     }
 
     public String serialize() {
-        return "{\"days\": [" + schedule.getDays().stream().collect(StringBuilder::new, this::serializeDay, StringBuilder::append) + "]}";
+        return "{\"days\": [" + schedule.getMenus().stream().collect(StringBuilder::new, this::serializeDay, StringBuilder::append) + "]}";
     }
 
     private void serializeDay(StringBuilder stringBuilder, Menu day) {
@@ -21,7 +21,7 @@ public class MenuSerializer {
                 .append("\"recipes\": [")
                 .append(day.getRecipes().stream().collect(StringBuilder::new, this::serializeRecipe, StringBuilder::append))
                 .append("]}")
-                .append(schedule.getDays().indexOf(day) == schedule.getDays().size() - 1 ? "" : ",");
+                .append(schedule.getMenus().indexOf(day) == schedule.getMenus().size() - 1 ? "" : ",");
     }
 
     private void serializeRecipe(StringBuilder stringBuilder, WebRecipe webRecipe) {

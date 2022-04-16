@@ -18,17 +18,13 @@ import java.util.Objects;
 class SavedScheduleParserTest {
 
     private Schedule initializeMenu() {
-        Schedule schedule = new Schedule();
-        Menu monday = new Menu(DayOfWeek.MONDAY);
-        Menu tuesday = new Menu(DayOfWeek.TUESDAY);
         WebRecipe google = new WebRecipe("google", "https://google.com");
-        WebRecipe bing = new WebRecipe("bing", "https://bing.con");
+        WebRecipe bing = new WebRecipe("bing", "https://bing.com");
         WebRecipe ddg = new WebRecipe("duckduckgo", "https://duckduckgo.com");
         WebRecipe askjeeves = new WebRecipe("askjeeves", "http://askjeeves.net");
-        monday.getRecipes().addAll(List.of(google, bing));
-        tuesday.getRecipes().addAll(List.of(ddg, askjeeves));
-        schedule.getDays().addAll(List.of(monday, tuesday));
-        return schedule;
+        Menu monday = new Menu(DayOfWeek.MONDAY, List.of(google, bing));
+        Menu tuesday = new Menu(DayOfWeek.TUESDAY, List.of(ddg, askjeeves));
+        return new Schedule(List.of(monday, tuesday));
     }
 
     @Test

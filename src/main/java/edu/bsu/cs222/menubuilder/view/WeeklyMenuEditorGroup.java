@@ -1,7 +1,6 @@
 package edu.bsu.cs222.menubuilder.view;
 
 import edu.bsu.cs222.menubuilder.model.Menu;
-import edu.bsu.cs222.menubuilder.model.MenuSingleton;
 import edu.bsu.cs222.menubuilder.model.Schedule;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,16 +12,18 @@ import javafx.scene.layout.VBox;
 
 public class WeeklyMenuEditorGroup extends Group {
 
+    private final Schedule uneditedSchedule;
     private final Schedule editedSchedule;
 
-    public WeeklyMenuEditorGroup() {
-        editedSchedule = MenuSingleton.schedule;
+    public WeeklyMenuEditorGroup(Schedule schedule) {
+        uneditedSchedule = schedule;
+        editedSchedule = schedule.copy();
         buildUI();
     }
 
     private void buildUI() {
         HBox box = configureHBox();
-        for (Menu day: editedSchedule.getDays()) {
+        for (Menu day: editedSchedule.getMenus()) {
             box.getChildren().add(new DayEditorBox(day));
         }
         this.getChildren().add(new VBox(buildButtonBar(), box));
@@ -33,14 +34,13 @@ public class WeeklyMenuEditorGroup extends Group {
         bar.getButtons().addAll(
                 buildButton("Save & Close", ButtonBar.ButtonData.APPLY, event -> saveAndClose()),
                 buildButton("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE,
-                        (e) -> this.getScene().setRoot(new WeeklyMenuViewGroup()))
+                        (e) -> this.getScene().setRoot(new WeeklyMenuViewGroup(uneditedSchedule)))
         );
         return bar;
     }
 
     private void saveAndClose() {
-        MenuSingleton.schedule = editedSchedule;
-        this.getScene().setRoot(new WeeklyMenuViewGroup());
+        this.getScene().setRoot(new WeeklyMenuViewGroup(editedSchedule));
     }
 
     private Button buildButton(String text, ButtonBar.ButtonData buttonData, EventHandler<ActionEvent> onAction) {

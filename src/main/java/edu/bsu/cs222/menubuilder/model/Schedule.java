@@ -5,18 +5,23 @@ import java.util.List;
 import java.util.Objects;
 
 public class Schedule {
-    public List<Menu> getDays() {
-        return List.copyOf(days);
-    }
 
-    private final List<Menu> days;
+    private final List<Menu> menus;
+
+    public List<Menu> getMenus() {
+        return List.copyOf(menus);
+    }
 
     public Schedule() {
         this(new LinkedList<>(List.of()));
     }
 
-    public Schedule(List<Menu> days) {
-        this.days = days;
+    public Schedule(List<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public Schedule copy() {
+        return new Schedule(getMenus());
     }
 
     @Override
@@ -24,11 +29,18 @@ public class Schedule {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Schedule schedule = (Schedule) o;
-        return Objects.equals(days, schedule.days);
+        return Objects.equals(menus, schedule.menus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(days);
+        return Objects.hash(menus);
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "menus=" + menus +
+                '}';
     }
 }

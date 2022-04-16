@@ -5,6 +5,7 @@ package edu.bsu.cs222.menubuilder.view;
 import edu.bsu.cs222.menubuilder.model.Menu;
 import edu.bsu.cs222.menubuilder.model.MenuSingleton;
 import edu.bsu.cs222.menubuilder.model.SaveLoadManager;
+import edu.bsu.cs222.menubuilder.model.Schedule;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -13,13 +14,16 @@ import javafx.scene.layout.VBox;
 
 public class WeeklyMenuViewGroup extends Group {
 
-    public WeeklyMenuViewGroup() {
+    private final Schedule schedule;
+
+    public WeeklyMenuViewGroup(Schedule schedule) {
+        this.schedule = schedule;
         buildUI();
     }
 
     private void buildUI() {
         HBox box = configureHBox();
-        for (Menu day: MenuSingleton.schedule.getDays()) {
+        for (Menu day: MenuSingleton.schedule.getMenus()) {
             box.getChildren().add(new DayViewBox(day));
         }
         this.getChildren().add(new VBox(buildButtonBar(), box));
@@ -49,7 +53,7 @@ public class WeeklyMenuViewGroup extends Group {
     private Button buildEditButton() {
         Button editButton = new Button("Edit Menu");
         ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.RIGHT);
-        editButton.setOnAction((e) -> this.getScene().setRoot(new WeeklyMenuEditorGroup()));
+        editButton.setOnAction((e) -> this.getScene().setRoot(new WeeklyMenuEditorGroup(schedule)));
         return editButton;
     }
 
