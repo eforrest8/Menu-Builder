@@ -1,5 +1,6 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.view;
 
+import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import javafx.scene.control.ListCell;
 
 public class RecipeSearchResultCell extends ListCell<WebRecipe> {

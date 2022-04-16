@@ -1,5 +1,7 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.view;
 
+import edu.bsu.cs222.menubuilder.model.BrowserLauncher;
+import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;

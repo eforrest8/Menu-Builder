@@ -1,4 +1,4 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.model;
 
 import java.net.*;
 import java.util.Objects;

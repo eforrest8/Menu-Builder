@@ -1,4 +1,6 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.model;
+
+import edu.bsu.cs222.menubuilder.view.MenuBuilderApplication;
 
 import java.time.DayOfWeek;
 import java.util.Collections;

@@ -1,11 +1,12 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.view;
 
+import edu.bsu.cs222.menubuilder.model.Menu;
+import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.Collections;
 import java.util.Optional;
 
 public class DayEditorBox extends VBox {

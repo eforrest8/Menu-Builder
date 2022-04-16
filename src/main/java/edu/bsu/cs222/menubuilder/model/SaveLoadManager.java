@@ -1,4 +1,4 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

@@ -1,7 +1,10 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.view;
 
 //Week auto-updater -- MAYBE
 
+import edu.bsu.cs222.menubuilder.model.Menu;
+import edu.bsu.cs222.menubuilder.model.MenuSingleton;
+import edu.bsu.cs222.menubuilder.model.SaveLoadManager;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;

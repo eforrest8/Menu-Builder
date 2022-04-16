@@ -1,5 +1,6 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.view;
 
+import edu.bsu.cs222.menubuilder.model.SaveLoadManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;

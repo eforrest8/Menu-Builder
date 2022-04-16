@@ -1,11 +1,11 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.model;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Locale;
 
-class BrowserLauncher {
+public class BrowserLauncher {
     public static void openBrowserToURI(URI uri) throws IOException {
         if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("linux")) {
             openBrowserOnLinux(uri);

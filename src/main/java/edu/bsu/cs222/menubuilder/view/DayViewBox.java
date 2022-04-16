@@ -1,5 +1,7 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.view;
 
+import edu.bsu.cs222.menubuilder.model.Menu;
+import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 

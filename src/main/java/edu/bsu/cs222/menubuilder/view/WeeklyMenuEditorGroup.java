@@ -1,5 +1,8 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.view;
 
+import edu.bsu.cs222.menubuilder.model.Menu;
+import edu.bsu.cs222.menubuilder.model.MenuSingleton;
+import edu.bsu.cs222.menubuilder.model.Schedule;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
