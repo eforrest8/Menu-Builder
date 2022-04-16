@@ -8,7 +8,7 @@ import java.util.prefs.Preferences;
 
 public class WeeklyScheduleBuilder {
 
-    final List<DayOfWeek> daysOfWeek = new LinkedList<>(List.of(DayOfWeek.values()));
+    private final List<DayOfWeek> daysOfWeek = new LinkedList<>(List.of(DayOfWeek.values()));
 
     public Schedule buildWeeklySchedule() {
         int offset = Integer.parseInt(
