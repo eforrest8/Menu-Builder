@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.time.DayOfWeek;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -20,29 +20,49 @@ class MenuTest {
     private final WebRecipe secondRecipe = new WebRecipe("second", "https://example.com");
     private final WebRecipe thirdRecipe = new WebRecipe("third", "https://example.com");
 
-    private final LinkedList<WebRecipe> initialRecipeList = new LinkedList<>(List.of(
+    private final List<WebRecipe> initialRecipeList = List.of(
             firstRecipe,
             secondRecipe,
+            thirdRecipe);
+
+    private final Menu shiftFirstUpMenu = new Menu(DayOfWeek.MONDAY, initialRecipeList);
+
+    private final Menu shiftSecondUpMenu = new Menu(DayOfWeek.MONDAY, List.of(
+            secondRecipe,
+            firstRecipe,
             thirdRecipe));
 
-    private final Menu initialShiftMenu = new Menu(DayOfWeek.MONDAY, initialRecipeList);
-
-    private final Menu zeroShiftUpMenu = new Menu(DayOfWeek.MONDAY, initialRecipeList);
-
-    private final Menu oneShiftUpMenu = new Menu(DayOfWeek.MONDAY, new LinkedList<>(List.of(
-            secondRecipe,
+    private final Menu shiftSecondDownMenu = new Menu(DayOfWeek.MONDAY, List.of(
             firstRecipe,
-            thirdRecipe)));
+            thirdRecipe,
+            secondRecipe));
 
-    private final Map<Runnable, Menu> shiftTestCases = Map.of(
-            () -> initialShiftMenu.shiftRecipeUp(0), zeroShiftUpMenu,
-            () -> initialShiftMenu.shiftRecipeUp(1), oneShiftUpMenu,
-            () -> initialShiftMenu.shiftRecipeUp(firstRecipe), zeroShiftUpMenu,
-            () -> initialShiftMenu.shiftRecipeUp(secondRecipe), oneShiftUpMenu
+    private final Menu shiftThirdDownMenu = new Menu(DayOfWeek.MONDAY, initialRecipeList);
+
+    private final Map<Consumer<Menu>, Menu> shiftUpTestCases = Map.of(
+            menu -> menu.shiftRecipeUp(0), shiftFirstUpMenu,
+            menu -> menu.shiftRecipeUp(1), shiftSecondUpMenu,
+            menu -> menu.shiftRecipeUp(firstRecipe), shiftFirstUpMenu,
+            menu -> menu.shiftRecipeUp(secondRecipe), shiftSecondUpMenu
     );
 
-    private Stream<Arguments> getShiftCaseStream() {
-        return shiftTestCases.entrySet().stream()
+    private final Map<Consumer<Menu>, Menu> shiftDownTestCases = Map.of(
+            menu -> menu.shiftRecipeDown(1), shiftSecondDownMenu,
+            menu -> menu.shiftRecipeDown(2), shiftThirdDownMenu,
+            menu -> menu.shiftRecipeDown(secondRecipe), shiftSecondDownMenu,
+            menu -> menu.shiftRecipeDown(thirdRecipe), shiftThirdDownMenu
+    );
+
+    private Stream<Arguments> getShiftUpCaseStream() {
+        return convertMapToCaseStream(shiftUpTestCases);
+    }
+
+    private Stream<Arguments> getShiftDownCaseStream() {
+        return convertMapToCaseStream(shiftDownTestCases);
+    }
+
+    private Stream<Arguments> convertMapToCaseStream(Map<Consumer<Menu>, Menu> map) {
+        return map.entrySet().stream()
                 .map(entry -> Arguments.arguments(entry.getKey(), entry.getValue()));
     }
 
@@ -71,9 +91,19 @@ class MenuTest {
     }
 
     @ParameterizedTest
-    @MethodSource("getShiftCaseStream")
-    public void testShiftRecipeUp(Runnable shift, Menu expected) {
-        shift.run();
-        Assertions.assertEquals(expected, initialShiftMenu);
+    @MethodSource("getShiftUpCaseStream")
+    public void testShiftRecipeUp(Consumer<Menu> shift, Menu expected) {
+        Menu actual = new Menu(DayOfWeek.MONDAY, initialRecipeList);
+        shift.accept(actual);
+        Assertions.assertEquals(expected, actual);
     }
+
+    @ParameterizedTest
+    @MethodSource("getShiftDownCaseStream")
+    public void testShiftRecipeDown(Consumer<Menu> shift, Menu expected) {
+        Menu actual = new Menu(DayOfWeek.MONDAY, initialRecipeList);
+        shift.accept(actual);
+        Assertions.assertEquals(expected, actual);
+    }
+
 }

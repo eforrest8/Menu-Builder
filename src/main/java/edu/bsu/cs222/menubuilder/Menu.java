@@ -17,7 +17,7 @@ public class Menu {
 
     public Menu(DayOfWeek dayOfWeek, List<WebRecipe> recipes) {
         this.dayOfWeek = dayOfWeek;
-        this.recipes = recipes;
+        this.recipes = new LinkedList<>(recipes);
     }
 
     public Menu(DayOfWeek dayOfWeek) {
@@ -51,8 +51,8 @@ public class Menu {
     }
 
     public void shiftRecipeDown(int index) {
-        if (index < recipes.size()) {
-            Collections.swap(recipes, index, index - 1);
+        if (index < recipes.size() - 1) {
+            Collections.swap(recipes, index, index + 1);
         }
     }
 
