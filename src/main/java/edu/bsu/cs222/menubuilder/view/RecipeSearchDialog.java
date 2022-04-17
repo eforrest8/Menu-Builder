@@ -1,6 +1,7 @@
 package edu.bsu.cs222.menubuilder.view;
 
-import edu.bsu.cs222.menubuilder.model.EdamamApiProvider;
+import edu.bsu.cs222.menubuilder.model.EdamamQuery;
+import edu.bsu.cs222.menubuilder.model.EdamamSearchProvider;
 import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -12,6 +13,7 @@ import javafx.scene.layout.VBox;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,8 +74,17 @@ public class RecipeSearchDialog extends Dialog<WebRecipe> {
     }
 
     private void updateSearchResults() {
-        List<WebRecipe> recipeCells = new EdamamApiProvider().search(searchInput.getText());
-        searchResults.setItems(FXCollections.observableList(recipeCells));
+        try {
+            List<WebRecipe> recipeCells = new EdamamSearchProvider().search(buildQuery());
+            searchResults.setItems(FXCollections.observableList(recipeCells));
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Edamam search failed!\n" + e.getLocalizedMessage()).showAndWait();
+            searchResults.setItems(FXCollections.emptyObservableList());
+        }
+    }
+
+    private EdamamQuery buildQuery() {
+        return new EdamamQuery(searchInput.getText());
     }
 
 }
