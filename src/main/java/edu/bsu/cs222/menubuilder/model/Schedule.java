@@ -2,7 +2,6 @@ package edu.bsu.cs222.menubuilder.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,10 +12,6 @@ public class Schedule {
 
     public List<Menu> getMenus() {
         return List.copyOf(menus);
-    }
-
-    public Schedule() {
-        this(new LinkedList<>(List.of()));
     }
 
     public Schedule(List<Menu> menus) {
