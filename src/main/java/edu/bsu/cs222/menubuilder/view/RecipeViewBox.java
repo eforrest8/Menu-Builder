@@ -2,6 +2,7 @@ package edu.bsu.cs222.menubuilder.view;
 
 import edu.bsu.cs222.menubuilder.model.BrowserLauncher;
 import edu.bsu.cs222.menubuilder.model.WebRecipe;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -25,7 +26,7 @@ public class RecipeViewBox extends VBox {
         Label title = new Label(recipe.getTitle());
         title.setWrapText(true);
         title.setTextOverrun(OverrunStyle.WORD_ELLIPSIS);
-        title.setMaxSize(128, 96);
+        title.setMaxHeight(96);
         return title;
     }
 

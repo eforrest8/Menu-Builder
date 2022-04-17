@@ -1,41 +1,44 @@
 package edu.bsu.cs222.menubuilder.view;
 
-//Week auto-updater -- MAYBE
-
 import edu.bsu.cs222.menubuilder.model.Menu;
-import edu.bsu.cs222.menubuilder.model.MenuSingleton;
 import edu.bsu.cs222.menubuilder.model.SaveLoadManager;
 import edu.bsu.cs222.menubuilder.model.Schedule;
-import javafx.scene.Group;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class WeeklyMenuViewGroup extends Group {
+import java.util.Optional;
+
+public class ScheduleViewBox extends VBox {
 
     private final Schedule schedule;
 
-    public WeeklyMenuViewGroup(Schedule schedule) {
+    public ScheduleViewBox(Schedule schedule) {
         this.schedule = schedule;
-        buildUI();
+        buildUI(schedule);
     }
 
-    private void buildUI() {
-        HBox box = configureHBox();
-        for (Menu day: MenuSingleton.schedule.getMenus()) {
-            box.getChildren().add(new DayViewBox(day));
+    private void buildUI(Schedule schedule) {
+        this.getChildren().clear();
+        this.setPrefSize(720, 480);
+        this.setPadding(new Insets(4));
+        HBox box = new HBox();
+        box.setSpacing(2);
+        VBox.setVgrow(box, Priority.ALWAYS);
+        for (Menu day: schedule.getMenus()) {
+            MenuViewBox menuViewBox = new MenuViewBox(day);
+            HBox.setHgrow(menuViewBox, Priority.ALWAYS);
+            box.getChildren().add(menuViewBox);
         }
         this.getChildren().add(new VBox(buildButtonBar(), box));
     }
 
-    private void rebuildUI() {
-        this.getChildren().clear();
-        buildUI();
-    }
-
     private ButtonBar buildButtonBar() {
         ButtonBar bar = new ButtonBar();
+        bar.setPadding(new Insets(0, 0, 4, 0));
         bar.getButtons().addAll(
                 buildLoadButton(),
                 buildEditButton(),
@@ -53,7 +56,7 @@ public class WeeklyMenuViewGroup extends Group {
     private Button buildEditButton() {
         Button editButton = new Button("Edit Menu");
         ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.RIGHT);
-        editButton.setOnAction((e) -> this.getScene().setRoot(new WeeklyMenuEditorGroup(schedule)));
+        editButton.setOnAction((e) -> this.getScene().setRoot(new ScheduleEditorBox(schedule)));
         return editButton;
     }
 
@@ -61,15 +64,10 @@ public class WeeklyMenuViewGroup extends Group {
         Button loadButton = new Button("Load Menu");
         ButtonBar.setButtonData(loadButton, ButtonBar.ButtonData.RIGHT);
         loadButton.setOnAction((e) -> {
-            new SaveLoadManager().loadFile(this.getScene().getWindow());
-            rebuildUI();
+            Optional<Schedule> optionalSchedule = new SaveLoadManager().loadFile(this.getScene().getWindow());
+            optionalSchedule.ifPresent(newSchedule -> this.getScene().setRoot(new ScheduleViewBox(newSchedule)));
         });
         return loadButton;
     }
 
-    private static HBox configureHBox() {
-        HBox box = new HBox();
-        box.setMinSize(640, 480);
-        return box;
-    }
 }

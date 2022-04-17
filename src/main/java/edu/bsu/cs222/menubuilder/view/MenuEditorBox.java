@@ -9,18 +9,17 @@ import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
-public class DayEditorBox extends VBox {
+public class MenuEditorBox extends VBox {
 
     private final Menu menu;
 
-    public DayEditorBox(Menu menu) {
+    public MenuEditorBox(Menu menu) {
         this.menu = menu;
         buildUI();
     }
 
     private void buildUI() {
         this.getChildren().clear();
-        this.setMinSize(96, 512);
         this.getChildren().add(new Label(menu.getName()));
         for (WebRecipe recipe: menu.getRecipes()) {
             this.getChildren().add(
@@ -41,8 +40,8 @@ public class DayEditorBox extends VBox {
     }
 
     private VBox buildShiftButtons(WebRecipe recipe) {
-        Button shiftUp = new Button("↑");
-        Button shiftDown = new Button("↓");
+        Button shiftUp = new Button("\u2191");
+        Button shiftDown = new Button("\u2193");
         shiftUp.setOnAction( e -> {
             menu.shiftRecipeUp(recipe);
             buildUI();

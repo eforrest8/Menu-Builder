@@ -12,11 +12,13 @@ import javafx.stage.WindowEvent;
 public class MenuBuilderApplication extends Application {
 
     private Stage stage;
+    private Schedule schedule;
 
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
-        stage.setScene(buildUI(initializeSchedule()));
+        schedule = initializeSchedule();
+        stage.setScene(buildUI(schedule));
         stage.setOnCloseRequest(this::handleCloseRequest);
         stage.show();
     }
@@ -30,12 +32,12 @@ public class MenuBuilderApplication extends Application {
             return;
         }
         SaveLoadManager fileManager = new SaveLoadManager();
-        fileManager.saveFile(stage.getOwner());
+        fileManager.saveFile(stage.getOwner(), schedule);
         Platform.exit();
     }
 
     private Scene buildUI(Schedule schedule) {
-        return new Scene(new WeeklyMenuViewGroup(schedule));
+        return new Scene(new ScheduleViewBox(schedule));
     }
 
 }

@@ -6,16 +6,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
 import java.io.*;
+import java.util.Optional;
 
 public class SaveLoadManager {
 
     private final MenuFileManager menuFileManager = new MenuFileManager();
 
-    public void saveFile(Window window) {
+    public void saveFile(Window window, Schedule schedule) {
         Alert yesNoAlert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to save your menu before closing?", ButtonType.NO, ButtonType.YES);
         yesNoAlert.showAndWait()
                 .filter(response -> response == ButtonType.YES)
-                .ifPresent(response -> menuFileManager.writeFile(showSaveFile(window)));
+                .ifPresent(response -> menuFileManager.writeFile(showSaveFile(window), schedule));
     }
 
     private File showSaveFile(Window window) {
@@ -25,8 +26,8 @@ public class SaveLoadManager {
         return chooser.showSaveDialog(window);
     }
 
-    public void loadFile(Window window) {
-        menuFileManager.loadFile(showOpenFile(window));
+    public Optional<Schedule> loadFile(Window window) {
+        return menuFileManager.loadFile(showOpenFile(window));
     }
 
     private File showOpenFile(Window window) {

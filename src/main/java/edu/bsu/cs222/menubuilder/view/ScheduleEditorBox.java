@@ -4,27 +4,30 @@ import edu.bsu.cs222.menubuilder.model.Menu;
 import edu.bsu.cs222.menubuilder.model.Schedule;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class WeeklyMenuEditorGroup extends Group {
+public class ScheduleEditorBox extends VBox {
 
     private final Schedule uneditedSchedule;
     private final Schedule editedSchedule;
 
-    public WeeklyMenuEditorGroup(Schedule schedule) {
+    public ScheduleEditorBox(Schedule schedule) {
         uneditedSchedule = schedule;
         editedSchedule = schedule.copy();
         buildUI();
     }
 
     private void buildUI() {
+        this.getChildren().clear();
         HBox box = configureHBox();
         for (Menu day: editedSchedule.getMenus()) {
-            box.getChildren().add(new DayEditorBox(day));
+            MenuEditorBox menuEditorBox = new MenuEditorBox(day);
+            HBox.setHgrow(menuEditorBox, Priority.ALWAYS);
+            box.getChildren().add(menuEditorBox);
         }
         this.getChildren().add(new VBox(buildButtonBar(), box));
     }
@@ -34,13 +37,14 @@ public class WeeklyMenuEditorGroup extends Group {
         bar.getButtons().addAll(
                 buildButton("Save & Close", ButtonBar.ButtonData.APPLY, event -> saveAndClose()),
                 buildButton("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE,
-                        (e) -> this.getScene().setRoot(new WeeklyMenuViewGroup(uneditedSchedule)))
+                        (e) -> this.getScene().setRoot(new ScheduleViewBox(uneditedSchedule)))
         );
         return bar;
     }
 
     private void saveAndClose() {
-        this.getScene().setRoot(new WeeklyMenuViewGroup(editedSchedule));
+
+        this.getScene().setRoot(new ScheduleViewBox(editedSchedule));
     }
 
     private Button buildButton(String text, ButtonBar.ButtonData buttonData, EventHandler<ActionEvent> onAction) {
