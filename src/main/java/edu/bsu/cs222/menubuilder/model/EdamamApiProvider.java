@@ -18,11 +18,11 @@ public class EdamamApiProvider {
     private String partialUrl;
 
     public EdamamApiProvider() {
-        getApiData();
+        loadApiKeys();
         buildPartialUrlString();
     }
 
-    private void getApiData() {
+    private void loadApiKeys() {
         InputStream apiInput = getClass().getClassLoader().getResourceAsStream("api.txt");
         Objects.requireNonNull(apiInput);
         try (BufferedReader apiReader = new BufferedReader(new InputStreamReader(apiInput))) {
