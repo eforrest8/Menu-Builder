@@ -10,7 +10,7 @@ javafx {
 }
 
 application {
-    mainClassName = "edu.bsu.cs222.menubuilder.MenuBuilderApplication"
+    mainClassName = "edu.bsu.cs222.menubuilder.view.MenuBuilderApplication"
 }
 
 group 'edu.bsu.cs222'
