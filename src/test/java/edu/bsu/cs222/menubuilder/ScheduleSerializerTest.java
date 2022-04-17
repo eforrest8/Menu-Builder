@@ -1,7 +1,7 @@
 package edu.bsu.cs222.menubuilder;
 
 import edu.bsu.cs222.menubuilder.model.Menu;
-import edu.bsu.cs222.menubuilder.model.MenuSerializer;
+import edu.bsu.cs222.menubuilder.model.ScheduleSerializer;
 import edu.bsu.cs222.menubuilder.model.Schedule;
 import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class ScheduleSerializerTest {
 
-    final MenuSerializer serializer = new MenuSerializer(initializeMenu());
+    final ScheduleSerializer serializer = new ScheduleSerializer(initializeMenu());
 
     private Schedule initializeMenu() {
         WebRecipe google = new WebRecipe("google", "https://google.com");
@@ -32,7 +32,9 @@ public class ScheduleSerializerTest {
     public void testWebRecipe() throws URISyntaxException, IOException {
         File file = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("savedmenu.json")).toURI());
         String expected = Files.readString(file.toPath());
-        String actual = serializer.serialize();
+        StringWriter writer = new StringWriter();
+        serializer.serialize(writer);
+        String actual = writer.toString();
         Assertions.assertEquals(expected, actual);
     }
 }

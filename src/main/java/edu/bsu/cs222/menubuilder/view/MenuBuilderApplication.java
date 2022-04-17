@@ -1,6 +1,5 @@
 package edu.bsu.cs222.menubuilder.view;
 
-import edu.bsu.cs222.menubuilder.model.SaveLoadManager;
 import edu.bsu.cs222.menubuilder.model.Schedule;
 import edu.bsu.cs222.menubuilder.model.WeeklyScheduleBuilder;
 import javafx.application.Application;
@@ -31,7 +30,7 @@ public class MenuBuilderApplication extends Application {
         if (windowEvent.getEventType() != WindowEvent.WINDOW_CLOSE_REQUEST) {
             return;
         }
-        SaveLoadManager fileManager = new SaveLoadManager();
+        SaveLoadDialog fileManager = new SaveLoadDialog();
         fileManager.saveFile(stage.getOwner(), schedule);
         Platform.exit();
     }

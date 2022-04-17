@@ -1,16 +1,31 @@
 package edu.bsu.cs222.menubuilder.model;
 
-public class MenuSerializer {
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.Writer;
+
+public class ScheduleSerializer {
 
     private final Schedule schedule;
 
     private Menu currentDay;
 
-    public MenuSerializer(Schedule schedule) {
+    public ScheduleSerializer(Schedule schedule) {
         this.schedule = schedule;
     }
 
-    public String serialize() {
+    public void serialize(Writer writer) {
+        JsonFactory factory = new JsonFactory();
+        try {
+            factory.createGenerator(writer).setCodec(new ObjectMapper()).writePOJO(schedule);
+        } catch (IOException | NullPointerException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public String oldSerialize() {
         return "{\"days\": [" + schedule.getMenus().stream().collect(StringBuilder::new, this::serializeDay, StringBuilder::append) + "]}";
     }
 

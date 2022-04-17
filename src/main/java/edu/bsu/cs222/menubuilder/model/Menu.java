@@ -1,5 +1,9 @@
 package edu.bsu.cs222.menubuilder.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.DayOfWeek;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -7,15 +11,19 @@ import java.util.List;
 import java.util.Objects;
 
 public class Menu {
+
+    @JsonProperty
     private final DayOfWeek dayOfWeek;
 
     public List<WebRecipe> getRecipes() {
         return List.copyOf(recipes);
     }
 
+    @JsonProperty
     private final List<WebRecipe> recipes;
 
-    public Menu(DayOfWeek dayOfWeek, List<WebRecipe> recipes) {
+    @JsonCreator
+    public Menu(@JsonProperty("dayOfWeek") DayOfWeek dayOfWeek, @JsonProperty("recipes") List<WebRecipe> recipes) {
         this.dayOfWeek = dayOfWeek;
         this.recipes = new LinkedList<>(recipes);
     }
@@ -24,6 +32,7 @@ public class Menu {
         this(dayOfWeek, new LinkedList<>(List.of()));
     }
 
+    @JsonIgnore
     public String getName() {
         return dayOfWeek.name();
     }

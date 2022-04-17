@@ -1,13 +1,21 @@
 package edu.bsu.cs222.menubuilder.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.net.*;
 import java.util.Objects;
 
 public class WebRecipe {
+
+    @JsonProperty
     private final String title;
+    @JsonProperty
     private URL recipeURL;
 
-    public WebRecipe(String title, String url) {
+    @JsonCreator
+    public WebRecipe(@JsonProperty("title") String title, @JsonProperty("recipeURL") String url) {
         this.title = title;
         setRecipeURL(url);
     }
@@ -24,6 +32,7 @@ public class WebRecipe {
         }
     }
 
+    @JsonIgnore
     public URI getURI() {
         try {
             return recipeURL.toURI();

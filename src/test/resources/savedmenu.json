@@ -1,1 +1,1 @@
-{"days": [{"name": "MONDAY","recipes": [{"title": "google","url": "https://google.com"},{"title": "bing","url": "https://bing.com"}]},{"name": "TUESDAY","recipes": [{"title": "duckduckgo","url": "https://duckduckgo.com"},{"title": "askjeeves","url": "http://askjeeves.net"}]}]}
+{"menus":[{"dayOfWeek":"MONDAY","recipes":[{"title":"google","recipeURL":"https://google.com"},{"title":"bing","recipeURL":"https://bing.com"}]},{"dayOfWeek":"TUESDAY","recipes":[{"title":"duckduckgo","recipeURL":"https://duckduckgo.com"},{"title":"askjeeves","recipeURL":"http://askjeeves.net"}]}]}

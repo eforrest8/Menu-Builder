@@ -1,11 +1,14 @@
 package edu.bsu.cs222.menubuilder.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 public class Schedule {
 
+    @JsonProperty
     private final List<Menu> menus;
 
     public List<Menu> getMenus() {

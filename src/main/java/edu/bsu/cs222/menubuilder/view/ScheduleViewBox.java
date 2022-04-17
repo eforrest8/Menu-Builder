@@ -1,7 +1,6 @@
 package edu.bsu.cs222.menubuilder.view;
 
 import edu.bsu.cs222.menubuilder.model.Menu;
-import edu.bsu.cs222.menubuilder.model.SaveLoadManager;
 import edu.bsu.cs222.menubuilder.model.Schedule;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -64,7 +63,7 @@ public class ScheduleViewBox extends VBox {
         Button loadButton = new Button("Load Menu");
         ButtonBar.setButtonData(loadButton, ButtonBar.ButtonData.RIGHT);
         loadButton.setOnAction((e) -> {
-            Optional<Schedule> optionalSchedule = new SaveLoadManager().loadFile(this.getScene().getWindow());
+            Optional<Schedule> optionalSchedule = new SaveLoadDialog().loadFile(this.getScene().getWindow());
             optionalSchedule.ifPresent(newSchedule -> this.getScene().setRoot(new ScheduleViewBox(newSchedule)));
         });
         return loadButton;
