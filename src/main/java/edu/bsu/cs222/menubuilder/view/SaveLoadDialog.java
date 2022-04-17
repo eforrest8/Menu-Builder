@@ -13,6 +13,13 @@ import java.util.Optional;
 
 public class SaveLoadDialog {
 
+    private final FileChooser chooser;
+
+    public SaveLoadDialog() {
+        chooser = new FileChooser();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json Files", "*.json"));
+    }
+
     public void saveFile(Window window, Schedule schedule) {
         Alert yesNoAlert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to save your menu before closing?", ButtonType.NO, ButtonType.YES);
         yesNoAlert.showAndWait()
@@ -21,9 +28,7 @@ public class SaveLoadDialog {
     }
 
     private FileWriter showSaveFile(Window window) {
-        FileChooser chooser = new FileChooser();
         chooser.setTitle("Save File");
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json Files", "*.json"));
         try {
             return new FileWriter(chooser.showSaveDialog(window));
         } catch (IOException e) {
@@ -37,13 +42,11 @@ public class SaveLoadDialog {
     }
 
     private FileReader showOpenFile(Window window) {
-        FileChooser chooser = new FileChooser();
         chooser.setTitle("Open File");
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json Files", "*.json"));
         try {
             return new FileReader(chooser.showOpenDialog(window));
         } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Unable to save file.").showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Unable to load file.").showAndWait();
             return null;
         }
     }
