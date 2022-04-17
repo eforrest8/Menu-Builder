@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class ScheduleSerializerTest {
 
-    final ScheduleSerializer serializer = new ScheduleSerializer(initializeMenu());
+    private final ScheduleSerializer serializer = new ScheduleSerializer(initializeMenu());
 
     private Schedule initializeMenu() {
         WebRecipe google = new WebRecipe("google", "https://google.com");

@@ -27,7 +27,7 @@ class ScheduleDeserializerTest {
     }
 
     @Test
-    void parse() {
+    public void parse() {
         ScheduleDeserializer parser = new ScheduleDeserializer();
         Reader reader = new InputStreamReader(
                 Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("savedmenu.json")));
