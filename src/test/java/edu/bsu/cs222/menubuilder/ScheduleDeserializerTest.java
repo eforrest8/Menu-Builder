@@ -1,15 +1,14 @@
 package edu.bsu.cs222.menubuilder;
 
 import edu.bsu.cs222.menubuilder.model.Menu;
-import edu.bsu.cs222.menubuilder.model.ScheduleDeserializer;
 import edu.bsu.cs222.menubuilder.model.Schedule;
+import edu.bsu.cs222.menubuilder.model.ScheduleDeserializer;
 import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Objects;
