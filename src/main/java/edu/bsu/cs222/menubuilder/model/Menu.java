@@ -65,6 +65,10 @@ public class Menu {
         }
     }
 
+    public Menu copy() {
+        return new Menu(DayOfWeek.of(dayOfWeek.getValue()), getRecipes());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,13 +80,6 @@ public class Menu {
     @Override
     public int hashCode() {
         return Objects.hash(dayOfWeek, recipes);
-    }
-
-    @Override
-    public String toString() {
-        return "Menu[" +
-                "dayOfWeek=" + dayOfWeek + ", " +
-                "recipes=" + recipes + ']';
     }
 
 }

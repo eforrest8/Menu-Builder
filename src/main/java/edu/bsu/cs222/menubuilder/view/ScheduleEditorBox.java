@@ -10,21 +10,31 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.util.function.Consumer;
+
 public class ScheduleEditorBox extends VBox {
 
-    private final Schedule uneditedSchedule;
     private final Schedule editedSchedule;
+    private Consumer<Schedule> onSaveAndClose;
+    private Runnable onCancel;
+
+    public void setOnSaveAndClose(Consumer<Schedule> consumer) {
+        this.onSaveAndClose = consumer;
+    }
+
+    public void setOnCancel(Runnable runnable) {
+        this.onCancel = runnable;
+    }
 
     public ScheduleEditorBox(Schedule schedule) {
-        uneditedSchedule = schedule;
-        editedSchedule = schedule.copy();
+        editedSchedule = schedule.deepCopy();
         buildUI();
     }
 
     private void buildUI() {
         this.getChildren().clear();
         HBox box = configureHBox();
-        for (Menu day: editedSchedule.getMenus()) {
+        for (Menu day : editedSchedule.getMenus()) {
             MenuEditorBox menuEditorBox = new MenuEditorBox(day);
             HBox.setHgrow(menuEditorBox, Priority.ALWAYS);
             box.getChildren().add(menuEditorBox);
@@ -32,19 +42,20 @@ public class ScheduleEditorBox extends VBox {
         this.getChildren().add(new VBox(buildButtonBar(), box));
     }
 
+    private static HBox configureHBox() {
+        HBox box = new HBox();
+        box.setMinSize(640, 480);
+        return box;
+    }
+
     private ButtonBar buildButtonBar() {
         ButtonBar bar = new ButtonBar();
         bar.getButtons().addAll(
-                buildButton("Save & Close", ButtonBar.ButtonData.APPLY, event -> saveAndClose()),
+                buildButton("Save & Close", ButtonBar.ButtonData.APPLY, event -> onSaveAndClose.accept(editedSchedule)),
                 buildButton("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE,
-                        (e) -> this.getScene().setRoot(new ScheduleViewBox(uneditedSchedule)))
+                        event -> onCancel.run())
         );
         return bar;
-    }
-
-    private void saveAndClose() {
-
-        this.getScene().setRoot(new ScheduleViewBox(editedSchedule));
     }
 
     private Button buildButton(String text, ButtonBar.ButtonData buttonData, EventHandler<ActionEvent> onAction) {
@@ -52,12 +63,6 @@ public class ScheduleEditorBox extends VBox {
         ButtonBar.setButtonData(button, buttonData);
         button.setOnAction(onAction);
         return button;
-    }
-
-    private static HBox configureHBox() {
-        HBox box = new HBox();
-        box.setMinSize(640, 480);
-        return box;
     }
 
 }

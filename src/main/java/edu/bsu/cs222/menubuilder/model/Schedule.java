@@ -1,7 +1,9 @@
 package edu.bsu.cs222.menubuilder.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,12 +16,13 @@ public class Schedule {
         return List.copyOf(menus);
     }
 
-    public Schedule(List<Menu> menus) {
+    @JsonCreator
+    public Schedule(@JsonProperty("menus") List<Menu> menus) {
         this.menus = menus;
     }
 
-    public Schedule copy() {
-        return new Schedule(getMenus());
+    public Schedule deepCopy() {
+        return new Schedule(menus.stream().map(Menu::copy).toList());
     }
 
     @Override
@@ -35,10 +38,4 @@ public class Schedule {
         return Objects.hash(menus);
     }
 
-    @Override
-    public String toString() {
-        return "Schedule{" +
-                "menus=" + menus +
-                '}';
-    }
 }

@@ -13,10 +13,18 @@ import java.util.Optional;
 
 public class ScheduleViewBox extends VBox {
 
-    private final Schedule schedule;
+    private Runnable onEdit;
+    private Runnable onLoadRequest;
+
+    public void setOnEdit(Runnable runnable) {
+        this.onEdit = runnable;
+    }
+
+    public void setOnLoadRequest(Runnable callback) {
+        this.onLoadRequest = callback;
+    }
 
     public ScheduleViewBox(Schedule schedule) {
-        this.schedule = schedule;
         buildUI(schedule);
     }
 
@@ -27,8 +35,8 @@ public class ScheduleViewBox extends VBox {
         HBox box = new HBox();
         box.setSpacing(2);
         VBox.setVgrow(box, Priority.ALWAYS);
-        for (Menu day: schedule.getMenus()) {
-            MenuViewBox menuViewBox = new MenuViewBox(day);
+        for (Menu menu: schedule.getMenus()) {
+            MenuViewBox menuViewBox = new MenuViewBox(menu);
             HBox.setHgrow(menuViewBox, Priority.ALWAYS);
             box.getChildren().add(menuViewBox);
         }
@@ -55,17 +63,14 @@ public class ScheduleViewBox extends VBox {
     private Button buildEditButton() {
         Button editButton = new Button("Edit Menu");
         ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.RIGHT);
-        editButton.setOnAction((e) -> this.getScene().setRoot(new ScheduleEditorBox(schedule)));
+        editButton.setOnAction((e) -> onEdit.run());
         return editButton;
     }
 
     private Button buildLoadButton() {
         Button loadButton = new Button("Load Menu");
         ButtonBar.setButtonData(loadButton, ButtonBar.ButtonData.RIGHT);
-        loadButton.setOnAction((e) -> {
-            Optional<Schedule> optionalSchedule = new SaveLoadDialog().loadFile(this.getScene().getWindow());
-            optionalSchedule.ifPresent(newSchedule -> this.getScene().setRoot(new ScheduleViewBox(newSchedule)));
-        });
+        loadButton.setOnAction(e -> onLoadRequest.run());
         return loadButton;
     }
 
