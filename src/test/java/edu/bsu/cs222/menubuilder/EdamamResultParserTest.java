@@ -1,7 +1,6 @@
 package edu.bsu.cs222.menubuilder;
 
 import edu.bsu.cs222.menubuilder.model.EdamamResultParser;
-import edu.bsu.cs222.menubuilder.model.EdamamSearchProvider;
 import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

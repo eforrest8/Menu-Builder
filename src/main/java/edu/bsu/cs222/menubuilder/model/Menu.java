@@ -5,22 +5,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.DayOfWeek;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Menu {
 
     @JsonProperty
     private final DayOfWeek dayOfWeek;
 
+    @JsonProperty
+    private final List<WebRecipe> recipes;
+
     public List<WebRecipe> getRecipes() {
         return List.copyOf(recipes);
     }
-
-    @JsonProperty
-    private final List<WebRecipe> recipes;
 
     @JsonCreator
     public Menu(@JsonProperty("dayOfWeek") DayOfWeek dayOfWeek, @JsonProperty("recipes") List<WebRecipe> recipes) {
@@ -82,4 +79,13 @@ public class Menu {
         return Objects.hash(dayOfWeek, recipes);
     }
 
+    public NutrientInfo getTotalNutrients(String nutrient) {
+        Optional<NutrientInfo> result = recipes.stream()
+                .map(recipe -> recipe.getNutrientValue(nutrient))
+                .reduce((first, second) -> new NutrientInfo(
+                        first.label(),
+                        first.quantity() + second.quantity(),
+                        first.unit()));
+        return result.orElseThrow();
+    }
 }

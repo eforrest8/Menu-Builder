@@ -1,6 +1,7 @@
 package edu.bsu.cs222.menubuilder;
 
 import edu.bsu.cs222.menubuilder.model.Menu;
+import edu.bsu.cs222.menubuilder.model.NutrientInfo;
 import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import java.util.stream.Stream;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MenuTest {
+
+    Map<String, NutrientInfo> nutrientMap = Map.of("nutrient", new NutrientInfo("label", 10, "unit"));
 
     private final WebRecipe firstRecipe = new WebRecipe("first", "https://example.com");
     private final WebRecipe secondRecipe = new WebRecipe("second", "https://example.com");
@@ -106,6 +109,19 @@ class MenuTest {
         Menu actual = new Menu(DayOfWeek.MONDAY, initialRecipeList);
         shift.accept(actual);
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetTotalNutrients() {
+        firstRecipe.setTotalNutrients(nutrientMap);
+        firstRecipe.setTotalDaily(nutrientMap);
+        secondRecipe.setTotalNutrients(nutrientMap);
+        secondRecipe.setTotalDaily(nutrientMap);
+        thirdRecipe.setTotalNutrients(nutrientMap);
+        thirdRecipe.setTotalDaily(nutrientMap);
+        Menu menu = new Menu(DayOfWeek.MONDAY, initialRecipeList);
+        NutrientInfo expected = new NutrientInfo("label", 30.0, "unit");
+        Assertions.assertEquals(expected, menu.getTotalNutrients("nutrient"));
     }
 
 }
