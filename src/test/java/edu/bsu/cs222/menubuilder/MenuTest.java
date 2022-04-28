@@ -124,4 +124,17 @@ class MenuTest {
         Assertions.assertEquals(expected, menu.getTotalNutrients("nutrient"));
     }
 
+    @Test
+    public void testGetTotalDailyValue() {
+        firstRecipe.setTotalNutrients(nutrientMap);
+        firstRecipe.setTotalDaily(nutrientMap);
+        secondRecipe.setTotalNutrients(nutrientMap);
+        secondRecipe.setTotalDaily(nutrientMap);
+        thirdRecipe.setTotalNutrients(nutrientMap);
+        thirdRecipe.setTotalDaily(nutrientMap);
+        Menu menu = new Menu(DayOfWeek.MONDAY, initialRecipeList);
+        NutrientInfo expected = new NutrientInfo("label", 30.0, "unit");
+        Assertions.assertEquals(expected, menu.getTotalDailyValue("nutrient"));
+    }
+
 }

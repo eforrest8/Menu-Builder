@@ -77,4 +77,8 @@ public class WebRecipe {
     public NutrientInfo getNutrientValue(String nutrient) {
         return totalNutrients.get(nutrient);
     }
+
+    public NutrientInfo getDailyValue(String nutrient) {
+        return totalDaily.get(nutrient);
+    }
 }

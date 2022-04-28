@@ -88,4 +88,14 @@ public class Menu {
                         first.unit()));
         return result.orElseThrow();
     }
+
+    public NutrientInfo getTotalDailyValue(String nutrient) {
+        Optional<NutrientInfo> result = recipes.stream()
+                .map(recipe -> recipe.getDailyValue(nutrient))
+                .reduce((first, second) -> new NutrientInfo(
+                        first.label(),
+                        first.quantity() + second.quantity(),
+                        first.unit()));
+        return result.orElseThrow();
+    }
 }
