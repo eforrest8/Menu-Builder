@@ -1,10 +1,9 @@
 package edu.bsu.cs222.menubuilder.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import java.net.*;
+import java.util.Map;
 import java.util.Objects;
 
 public class WebRecipe {
@@ -13,6 +12,10 @@ public class WebRecipe {
     private final String title;
     @JsonProperty
     private URL recipeURL;
+    @JsonProperty
+    private Map<String, NutrientInfo> totalNutrients;
+    @JsonProperty
+    private Map<String, NutrientInfo> totalDaily;
 
     @JsonCreator
     public WebRecipe(@JsonProperty("title") String title, @JsonProperty("recipeURL") String url) {
@@ -61,5 +64,13 @@ public class WebRecipe {
                 "title='" + title + '\'' +
                 ", recipeURL=" + recipeURL +
                 '}';
+    }
+
+    public void setTotalNutrients(Map<String, NutrientInfo> totalInfo) {
+        totalNutrients = totalInfo;
+    }
+
+    public void setTotalDaily(Map<String, NutrientInfo> dailyInfo) {
+        totalDaily = dailyInfo;
     }
 }

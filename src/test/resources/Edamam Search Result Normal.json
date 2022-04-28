@@ -1,0 +1,87 @@
+{
+  "from": 1,
+  "to": 20,
+  "count": 10000,
+  "_links": {
+    "next": {
+      "href": "https://api.edamam.com/api/recipes/v2?q=tomato&app_key=d8df22afef6bc105665dafc6e1f0014e&field=label&field=shareAs&field=totalTime&field=totalNutrients&field=totalDaily&_cont=CHcVQBtNNQphDmgVQntAEX4BYlFtAwMOQ2FEA2UWY1RxBgMAUXlSUWQUMAMhUFYFQmxBUmpBZVB7BwcEQWQRA2ZHNQQlA1YVLnlSVSBMPkd5BgMbUSYRVTdgMgksRlpSAAcRXTVGcV84SU4%3D&type=public&app_id=d5fb0e7e",
+      "title": "Next page"
+    }
+  },
+  "hits": [
+    {
+      "recipe": {
+        "label": "Tomato Gravy",
+        "shareAs": "http://www.edamam.com/recipe/tomato-gravy-1155648f37e539dc36b847ddbf7f53f7/tomato",
+        "totalTime": 10,
+        "totalNutrients": {
+          "ENERC_KCAL": {
+            "label": "Energy",
+            "quantity": 1018.1076296134726,
+            "unit": "kcal"
+          },
+          "VITA_RAE": {
+            "label": "Vitamin A",
+            "quantity": 463.16877651846664,
+            "unit": "µg"
+          }
+        },
+        "totalDaily": {
+          "ENERC_KCAL": {
+            "label": "Energy",
+            "quantity": 50.905381480673626,
+            "unit": "%"
+          },
+          "VITA_RAE": {
+            "label": "Vitamin A",
+            "quantity": 51.463197390940735,
+            "unit": "%"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.edamam.com/api/recipes/v2/1155648f37e539dc36b847ddbf7f53f7?type=public&app_id=d5fb0e7e&app_key=d8df22afef6bc105665dafc6e1f0014e",
+          "title": "Self"
+        }
+      }
+    },
+    {
+      "recipe": {
+        "label": "Grated Tomato",
+        "shareAs": "http://www.edamam.com/recipe/grated-tomato-c7efb0a67ef7e4a406cbcc3868050090/tomato",
+        "totalTime": 0,
+        "totalNutrients": {
+          "ENERC_KCAL": {
+            "label": "Energy",
+            "quantity": 92.87303775750001,
+            "unit": "kcal"
+          },
+          "VITA_RAE": {
+            "label": "Vitamin A",
+            "quantity": 216.70375476750002,
+            "unit": "µg"
+          }
+        },
+        "totalDaily": {
+          "ENERC_KCAL": {
+            "label": "Energy",
+            "quantity": 4.643651887875001,
+            "unit": "%"
+          },
+          "VITA_RAE": {
+            "label": "Vitamin A",
+            "quantity": 24.07819497416667,
+            "unit": "%"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.edamam.com/api/recipes/v2/c7efb0a67ef7e4a406cbcc3868050090?type=public&app_id=d5fb0e7e&app_key=d8df22afef6bc105665dafc6e1f0014e",
+          "title": "Self"
+        }
+      }
+    }
+  ]
+}
