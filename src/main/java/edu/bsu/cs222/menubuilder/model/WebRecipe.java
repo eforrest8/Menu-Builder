@@ -17,6 +17,14 @@ public class WebRecipe {
     @JsonProperty
     private Map<String, NutrientInfo> totalDaily;
 
+    public void setTotalNutrients(Map<String, NutrientInfo> totalInfo) {
+        totalNutrients = totalInfo;
+    }
+
+    public void setTotalDaily(Map<String, NutrientInfo> dailyInfo) {
+        totalDaily = dailyInfo;
+    }
+
     @JsonCreator
     public WebRecipe(@JsonProperty("title") String title, @JsonProperty("recipeURL") String url) {
         this.title = title;
@@ -27,7 +35,7 @@ public class WebRecipe {
         return title;
     }
 
-    public void setRecipeURL(String url) {
+    private void setRecipeURL(String url) {
         try {
             recipeURL = new URL(url);
         } catch (MalformedURLException e) {
@@ -66,11 +74,4 @@ public class WebRecipe {
                 '}';
     }
 
-    public void setTotalNutrients(Map<String, NutrientInfo> totalInfo) {
-        totalNutrients = totalInfo;
-    }
-
-    public void setTotalDaily(Map<String, NutrientInfo> dailyInfo) {
-        totalDaily = dailyInfo;
-    }
 }
