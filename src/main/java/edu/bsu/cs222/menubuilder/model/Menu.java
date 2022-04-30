@@ -3,9 +3,15 @@ package edu.bsu.cs222.menubuilder.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 
 import java.time.DayOfWeek;
 import java.util.*;
+import java.util.stream.Stream;
+
+import static javafx.collections.FXCollections.observableList;
 
 public class Menu {
 
@@ -97,5 +103,15 @@ public class Menu {
                         first.quantity() + second.quantity(),
                         first.unit()));
         return result.orElseThrow();
+    }
+
+    public ObservableList<XYChart.Series<Number, String>> generateObservableList() {
+        Set<String> keys = recipes.get(0).getDailyValueKeySet();
+        return FXCollections.observableList(keys.stream()
+                .map(this::getTotalDailyValue)
+                .map(nutrientInfo -> List.of(new XYChart.Data<>((Number)nutrientInfo.quantity(), nutrientInfo.label())))
+                .map(FXCollections::observableList)
+                .map(XYChart.Series::new)
+                .toList());
     }
 }

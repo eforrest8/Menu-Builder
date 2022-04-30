@@ -1,10 +1,16 @@
 package edu.bsu.cs222.menubuilder.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class WebRecipe {
 
@@ -58,20 +64,30 @@ public class WebRecipe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WebRecipe webRecipe = (WebRecipe) o;
-        return title.equals(webRecipe.title) && recipeURL.equals(webRecipe.recipeURL);
+        return title.equals(webRecipe.title) && recipeURL.equals(webRecipe.recipeURL)
+                && mapEquals(totalDaily, webRecipe.totalDaily)
+                && mapEquals(totalNutrients, webRecipe.totalNutrients);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, recipeURL);
+    private boolean mapEquals(Map<String, NutrientInfo> first, Map<String, NutrientInfo> second) {
+        return first.entrySet().stream()
+                .allMatch(entry -> second.containsKey(entry.getKey()) &&
+                        second.get(entry.getKey()).equals(entry.getValue()));
     }
 
     @Override
     public String toString() {
-        return "WebRecipe{" +
+        return "WebRecipe{\n" +
                 "title='" + title + '\'' +
-                ", recipeURL=" + recipeURL +
+                ",\nrecipeURL=" + recipeURL +
+                ",\ntotalNutrients=" + totalNutrients +
+                ",\ntotalDaily=" + totalDaily +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, recipeURL, totalDaily, totalNutrients);
     }
 
     public NutrientInfo getNutrientValue(String nutrient) {
@@ -80,5 +96,15 @@ public class WebRecipe {
 
     public NutrientInfo getDailyValue(String nutrient) {
         return totalDaily.get(nutrient);
+    }
+
+    @JsonIgnore
+    public Set<String> getNutrientKeySet() {
+        return totalNutrients.keySet();
+    }
+
+    @JsonIgnore
+    public Set<String> getDailyValueKeySet() {
+        return totalDaily.keySet();
     }
 }

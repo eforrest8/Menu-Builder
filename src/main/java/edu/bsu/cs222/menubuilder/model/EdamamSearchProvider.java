@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class EdamamSearchProvider {
-
     private final EdamamResultParser edamamResultParser = new EdamamResultParser();
 
     public List<WebRecipe> search(EdamamQuery query) throws IOException {

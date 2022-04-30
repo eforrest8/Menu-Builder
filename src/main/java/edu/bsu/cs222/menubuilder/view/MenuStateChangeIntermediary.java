@@ -1,5 +1,6 @@
 package edu.bsu.cs222.menubuilder.view;
 
+import edu.bsu.cs222.menubuilder.model.Menu;
 import edu.bsu.cs222.menubuilder.model.Schedule;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -55,6 +56,10 @@ public class MenuStateChangeIntermediary {
 
     private void showSaveDialog() {
         new SaveLoadDialog().saveFile(stage.getOwner(), schedule);
+    }
+
+    private void showMenuNutritionDetailDialog(Menu menu) {
+        new MenuNutritionDetailDialog(menu).showAndWait();
     }
 
     private void handleCloseRequest(WindowEvent windowEvent) {

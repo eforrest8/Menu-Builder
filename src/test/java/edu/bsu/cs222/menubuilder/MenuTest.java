@@ -1,8 +1,9 @@
 package edu.bsu.cs222.menubuilder;
 
-import edu.bsu.cs222.menubuilder.model.Menu;
-import edu.bsu.cs222.menubuilder.model.NutrientInfo;
-import edu.bsu.cs222.menubuilder.model.WebRecipe;
+import edu.bsu.cs222.menubuilder.model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -135,6 +136,27 @@ class MenuTest {
         Menu menu = new Menu(DayOfWeek.MONDAY, initialRecipeList);
         NutrientInfo expected = new NutrientInfo("label", 30.0, "unit");
         Assertions.assertEquals(expected, menu.getTotalDailyValue("nutrient"));
+    }
+
+    @Test
+    public void testGenerateObservableList() {
+        EdamamResultParser parser = new EdamamResultParser();
+        List<WebRecipe> recipes = parser.parse(this.getClass().getClassLoader().getResourceAsStream("Edamam Search Result Normal.json"));
+        Menu menu = new Menu(DayOfWeek.MONDAY, recipes);
+        List<XYChart.Series<Number, String>> expectedList = List.of(
+                new XYChart.Series<>(FXCollections.observableList(List.of(
+                        new XYChart.Data<>(50.905381480673626 + 4.643651887875001, "Energy")
+                ))),
+                new XYChart.Series<>(FXCollections.observableList(List.of(
+                        new XYChart.Data<>(51.463197390940735 + 24.07819497416667, "Vitamin A")
+                )))
+        );
+        ObservableList<XYChart.Series<Number, String>> expected = FXCollections.observableList(expectedList);
+        ObservableList<XYChart.Series<Number, String>> actual = menu.generateObservableList();
+        for (int i = 0; i < expected.size(); i++) {
+            Assertions.assertEquals(expected.get(i).getData().get(0).getXValue(), actual.get(i).getData().get(0).getXValue());
+            Assertions.assertEquals(expected.get(i).getData().get(0).getYValue(), actual.get(i).getData().get(0).getYValue());
+        }
     }
 
 }
