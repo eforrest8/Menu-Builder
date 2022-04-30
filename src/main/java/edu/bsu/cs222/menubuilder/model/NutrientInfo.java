@@ -1,7 +1,5 @@
 package edu.bsu.cs222.menubuilder.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 /**
  * This class directly represents Edamam's NutrientInfo format.
  */

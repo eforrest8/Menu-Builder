@@ -4,7 +4,6 @@ import edu.bsu.cs222.menubuilder.model.Menu;
 import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;

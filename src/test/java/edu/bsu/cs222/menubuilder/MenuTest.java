@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MenuTest {
 
-    Map<String, NutrientInfo> nutrientMap = Map.of("nutrient", new NutrientInfo("label", 10, "unit"));
+    private final Map<String, NutrientInfo> nutrientMap = Map.of("nutrient", new NutrientInfo("label", 10, "unit"));
 
     private final WebRecipe firstRecipe = new WebRecipe("first", "https://example.com");
     private final WebRecipe secondRecipe = new WebRecipe("second", "https://example.com");

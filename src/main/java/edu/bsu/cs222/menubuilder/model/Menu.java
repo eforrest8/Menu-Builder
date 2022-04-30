@@ -9,9 +9,6 @@ import javafx.scene.chart.XYChart;
 
 import java.time.DayOfWeek;
 import java.util.*;
-import java.util.stream.Stream;
-
-import static javafx.collections.FXCollections.observableList;
 
 public class Menu {
 

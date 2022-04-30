@@ -58,10 +58,6 @@ public class MenuStateChangeIntermediary {
         new SaveLoadDialog().saveFile(stage.getOwner(), schedule);
     }
 
-    private void showMenuNutritionDetailDialog(Menu menu) {
-        new MenuNutritionDetailDialog(menu).showAndWait();
-    }
-
     private void handleCloseRequest(WindowEvent windowEvent) {
         if (windowEvent.getEventType() == WindowEvent.WINDOW_CLOSE_REQUEST &&
                 !schedule.equals(initialSchedule)) {
