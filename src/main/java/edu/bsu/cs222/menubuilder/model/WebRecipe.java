@@ -60,6 +60,8 @@ public class WebRecipe {
     }
 
     @Override
+    // Pulls info directly from Edamam URL input -- based on user search
+    // Inputs into recipe info Map
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

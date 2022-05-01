@@ -9,6 +9,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+// Builds viewable and clickable
+// Edit, Load, and Settings buttons
+
 public class ScheduleViewBox extends VBox {
 
     private Runnable onEdit;
@@ -51,7 +54,7 @@ public class ScheduleViewBox extends VBox {
         );
         return bar;
     }
-
+    // remove? - A
     private Button buildSettingsButton() {
         Button settingsButton = new Button("Settings");
         ButtonBar.setButtonData(settingsButton, ButtonBar.ButtonData.LEFT);

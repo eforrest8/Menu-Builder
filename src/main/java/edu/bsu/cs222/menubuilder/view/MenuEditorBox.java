@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
+// Button Builder and UI flesher-outer
+
 public class MenuEditorBox extends VBox {
 
     private final Menu menu;
