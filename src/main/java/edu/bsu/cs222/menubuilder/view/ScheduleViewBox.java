@@ -46,16 +46,9 @@ public class ScheduleViewBox extends VBox {
         bar.setPadding(new Insets(0, 0, 4, 0));
         bar.getButtons().addAll(
                 buildLoadButton(),
-                buildEditButton(),
-                buildSettingsButton()
+                buildEditButton()
         );
         return bar;
-    }
-
-    private Button buildSettingsButton() {
-        Button settingsButton = new Button("Settings");
-        ButtonBar.setButtonData(settingsButton, ButtonBar.ButtonData.LEFT);
-        return settingsButton;
     }
 
     private Button buildEditButton() {
