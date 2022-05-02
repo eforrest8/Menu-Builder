@@ -22,7 +22,6 @@ public class EdamamResultParser {
                     context.read("$.hits[" + i + "].recipe.label"),
                     context.read("$.hits[" + i + "].recipe.shareAs")
             );
-            // Reads info from specific recipe Map and passes that info to "MenuNutritionDetailDialogue"
             Map<String, Map<String, Object>> totalInfo = context.read("$.hits[" + i + "].recipe.totalNutrients");
             Map<String, Map<String, Object>> dailyInfo = context.read("$.hits[" + i + "].recipe.totalDaily");
             Map<String, NutrientInfo> totalNutrientInfoMap = new HashMap<>();
@@ -36,7 +35,6 @@ public class EdamamResultParser {
                                     (String) value.get("unit")));
                 }
             });
-            // Ensures all nutrient info is gathered
             dailyInfo.forEach((key, value) -> {
                 if (value.get("quantity") instanceof Double quantity) {
                     dailyValueInfoMap.put(key,

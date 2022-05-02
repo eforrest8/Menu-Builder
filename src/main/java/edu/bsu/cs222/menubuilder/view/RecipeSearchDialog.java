@@ -17,8 +17,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-// Builds Search Tab
-
 public class RecipeSearchDialog extends Dialog<WebRecipe> {
     private final DialogPane pane = new DialogPane();
     private final ListView<WebRecipe> searchResults = new ListView<>();

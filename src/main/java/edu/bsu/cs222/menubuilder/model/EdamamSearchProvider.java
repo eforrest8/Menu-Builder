@@ -11,5 +11,3 @@ public class EdamamSearchProvider {
         return edamamResultParser.parse(edamamUrl.getURL().openConnection().getInputStream());
     }
 }
-
-// Utilizes "edamamResultParser" class functions to build the backbone of the search function

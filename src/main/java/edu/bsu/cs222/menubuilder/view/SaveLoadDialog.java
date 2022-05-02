@@ -11,9 +11,6 @@ import javafx.stage.Window;
 import java.io.*;
 import java.util.Optional;
 
-// Allows user to pull from existing file
-// Allows user to save built menu
-
 public class SaveLoadDialog {
 
     private final FileChooser chooser;
