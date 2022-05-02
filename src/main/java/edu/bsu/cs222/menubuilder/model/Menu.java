@@ -14,13 +14,8 @@ public class Menu {
 
     @JsonProperty
     private final DayOfWeek dayOfWeek;
-
     @JsonProperty
     private final List<WebRecipe> recipes;
-
-    public List<WebRecipe> getRecipes() {
-        return List.copyOf(recipes);
-    }
 
     @JsonCreator
     public Menu(@JsonProperty("dayOfWeek") DayOfWeek dayOfWeek, @JsonProperty("recipes") List<WebRecipe> recipes) {
@@ -30,6 +25,10 @@ public class Menu {
 
     public Menu(DayOfWeek dayOfWeek) {
         this(dayOfWeek, new LinkedList<>(List.of()));
+    }
+
+    public List<WebRecipe> getRecipes() {
+        return List.copyOf(recipes);
     }
 
     @JsonIgnore
@@ -46,23 +45,41 @@ public class Menu {
     }
 
     public void shiftRecipeUp(WebRecipe recipe) {
-        shiftRecipeUp(recipes.indexOf(recipe));
-    }
-
-    public void shiftRecipeUp(int index) {
+        int index = recipes.indexOf(recipe);
         if (index > 0) {
             Collections.swap(recipes, index, index - 1);
         }
     }
 
     public void shiftRecipeDown(WebRecipe recipe) {
-        shiftRecipeDown(recipes.indexOf(recipe));
-    }
-
-    public void shiftRecipeDown(int index) {
+        int index = recipes.indexOf(recipe);
         if (index < recipes.size() - 1) {
             Collections.swap(recipes, index, index + 1);
         }
+    }
+
+    public NutrientInfo getTotalNutrients(String nutrient) {
+        Optional<NutrientInfo> result = recipes.stream()
+                .map(recipe -> recipe.getNutrientValue(nutrient))
+                .reduce(NutrientInfo::sumQuantities);
+        return result.orElseThrow();
+    }
+
+    public NutrientInfo getTotalDailyValue(String nutrient) {
+        Optional<NutrientInfo> result = recipes.stream()
+                .map(recipe -> recipe.getDailyValue(nutrient))
+                .reduce(NutrientInfo::sumQuantities);
+        return result.orElseThrow();
+    }
+
+    public ObservableList<XYChart.Series<Number, String>> generateObservableList() {
+        Set<String> keys = recipes.get(0).getDailyValueKeySet();
+        return FXCollections.observableList(keys.stream()
+                .map(this::getTotalDailyValue)
+                .map(nutrientInfo -> List.of(new XYChart.Data<>((Number)nutrientInfo.quantity(), nutrientInfo.label())))
+                .map(FXCollections::observableList)
+                .map(XYChart.Series::new)
+                .toList());
     }
 
     public Menu copy() {
@@ -82,33 +99,4 @@ public class Menu {
         return Objects.hash(dayOfWeek, recipes);
     }
 
-    public NutrientInfo getTotalNutrients(String nutrient) {
-        Optional<NutrientInfo> result = recipes.stream()
-                .map(recipe -> recipe.getNutrientValue(nutrient))
-                .reduce((first, second) -> new NutrientInfo(
-                        first.label(),
-                        first.quantity() + second.quantity(),
-                        first.unit()));
-        return result.orElseThrow();
-    }
-
-    public NutrientInfo getTotalDailyValue(String nutrient) {
-        Optional<NutrientInfo> result = recipes.stream()
-                .map(recipe -> recipe.getDailyValue(nutrient))
-                .reduce((first, second) -> new NutrientInfo(
-                        first.label(),
-                        first.quantity() + second.quantity(),
-                        first.unit()));
-        return result.orElseThrow();
-    }
-
-    public ObservableList<XYChart.Series<Number, String>> generateObservableList() {
-        Set<String> keys = recipes.get(0).getDailyValueKeySet();
-        return FXCollections.observableList(keys.stream()
-                .map(this::getTotalDailyValue)
-                .map(nutrientInfo -> List.of(new XYChart.Data<>((Number)nutrientInfo.quantity(), nutrientInfo.label())))
-                .map(FXCollections::observableList)
-                .map(XYChart.Series::new)
-                .toList());
-    }
 }

@@ -46,15 +46,11 @@ class MenuTest {
     private final Menu shiftThirdDownMenu = new Menu(DayOfWeek.MONDAY, initialRecipeList);
 
     private final Map<Consumer<Menu>, Menu> shiftUpTestCases = Map.of(
-            menu -> menu.shiftRecipeUp(0), shiftFirstUpMenu,
-            menu -> menu.shiftRecipeUp(1), shiftSecondUpMenu,
             menu -> menu.shiftRecipeUp(firstRecipe), shiftFirstUpMenu,
             menu -> menu.shiftRecipeUp(secondRecipe), shiftSecondUpMenu
     );
 
     private final Map<Consumer<Menu>, Menu> shiftDownTestCases = Map.of(
-            menu -> menu.shiftRecipeDown(1), shiftSecondDownMenu,
-            menu -> menu.shiftRecipeDown(2), shiftThirdDownMenu,
             menu -> menu.shiftRecipeDown(secondRecipe), shiftSecondDownMenu,
             menu -> menu.shiftRecipeDown(thirdRecipe), shiftThirdDownMenu
     );
