@@ -9,7 +9,12 @@ import javafx.stage.Stage;
 
 public class MenuNutritionDetailDialog extends Stage {
     public MenuNutritionDetailDialog(Menu menu) {
-        BarChart<Number, String> chart = new BarChart<>(new NumberAxis(), new CategoryAxis());
+        CategoryAxis categoryAxis = new CategoryAxis();
+        categoryAxis.setLabel("Nutrients");
+        NumberAxis numberAxis = new NumberAxis();
+        numberAxis.setLabel("% Daily Values");
+        BarChart<Number, String> chart = new BarChart<>(numberAxis, categoryAxis);
+        chart.setLegendVisible(false);
         chart.setData(menu.generateObservableList());
         this.setMinHeight(640);
         this.setScene(new Scene(chart));
