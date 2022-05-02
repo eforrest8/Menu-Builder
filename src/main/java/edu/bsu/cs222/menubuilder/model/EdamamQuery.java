@@ -1,5 +1,8 @@
 package edu.bsu.cs222.menubuilder.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class EdamamQuery {
 
     private final String searchText;
@@ -9,6 +12,6 @@ public class EdamamQuery {
     }
 
     public String getSearchText() {
-        return searchText;
+        return URLEncoder.encode(searchText, StandardCharsets.UTF_8);
     }
 }
