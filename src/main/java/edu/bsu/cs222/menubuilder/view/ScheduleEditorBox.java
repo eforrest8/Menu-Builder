@@ -27,14 +27,14 @@ public class ScheduleEditorBox extends VBox {
     }
 
     public ScheduleEditorBox(Schedule schedule) {
-        editedSchedule = schedule.deepCopy();
+        editedSchedule = schedule.copy();
         buildUI();
     }
 
     private void buildUI() {
         this.getChildren().clear();
         HBox box = configureHBox();
-        for (Menu day : editedSchedule.getMenus()) {
+        for (Menu day : editedSchedule.menus()) {
             MenuEditorBox menuEditorBox = new MenuEditorBox(day);
             HBox.setHgrow(menuEditorBox, Priority.ALWAYS);
             box.getChildren().add(menuEditorBox);

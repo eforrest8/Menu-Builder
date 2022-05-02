@@ -33,7 +33,7 @@ public class ScheduleViewBox extends VBox {
         HBox box = new HBox();
         box.setSpacing(2);
         VBox.setVgrow(box, Priority.ALWAYS);
-        for (Menu menu: schedule.getMenus()) {
+        for (Menu menu: schedule.menus()) {
             MenuViewBox menuViewBox = new MenuViewBox(menu);
             HBox.setHgrow(menuViewBox, Priority.ALWAYS);
             box.getChildren().add(menuViewBox);
