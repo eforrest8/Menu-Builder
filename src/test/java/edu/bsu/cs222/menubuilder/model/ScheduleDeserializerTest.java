@@ -1,20 +1,17 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.model;
 
 import edu.bsu.cs222.menubuilder.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class ScheduleSerializerTest {
-
-    private final ScheduleSerializer serializer = new ScheduleSerializer(initializeMenu());
+class ScheduleDeserializerTest {
 
     private Schedule initializeMenu() {
         Map<String, NutrientInfo> nutrientMap = Map.of("nutrient", new NutrientInfo("label", 10, "unit"));
@@ -36,12 +33,12 @@ public class ScheduleSerializerTest {
     }
 
     @Test
-    public void testWebRecipe() throws URISyntaxException, IOException {
-        File file = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("savedmenu.json")).toURI());
-        String expected = Files.readString(file.toPath());
-        StringWriter writer = new StringWriter();
-        serializer.serialize(writer);
-        String actual = writer.toString();
+    public void parse() {
+        ScheduleDeserializer parser = new ScheduleDeserializer();
+        Reader reader = new InputStreamReader(
+                Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("savedmenu.json")));
+        Schedule actual = parser.deserialize(reader);
+        Schedule expected = initializeMenu();
         Assertions.assertEquals(expected, actual);
     }
 }

@@ -1,8 +1,5 @@
-package edu.bsu.cs222.menubuilder;
+package edu.bsu.cs222.menubuilder.model;
 
-import edu.bsu.cs222.menubuilder.model.EdamamResultParser;
-import edu.bsu.cs222.menubuilder.model.NutrientInfo;
-import edu.bsu.cs222.menubuilder.model.WebRecipe;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
