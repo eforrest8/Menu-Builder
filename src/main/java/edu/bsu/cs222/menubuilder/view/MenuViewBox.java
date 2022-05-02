@@ -28,6 +28,7 @@ public class MenuViewBox extends VBox {
         this.getChildren().add(buildDetailButton(day));
     }
 
+    // Can we attach this to specific recipes so that it isn't just showing up automatically? - A
     private Button buildDetailButton(Menu menu) {
         Button button = new Button("See nutrition details");
         button.setOnAction(e -> new MenuNutritionDetailDialog(menu).showAndWait());

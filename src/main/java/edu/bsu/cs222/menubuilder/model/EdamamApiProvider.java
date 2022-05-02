@@ -9,6 +9,7 @@ public class EdamamApiProvider {
     private final String apiKey;
 
     public EdamamApiProvider() throws IOException {
+        // Pulls and inputs API data to access Edamam database
         InputStream apiInput = getClass().getClassLoader().getResourceAsStream("api.txt");
         Objects.requireNonNull(apiInput);
         try (BufferedReader apiReader = new BufferedReader(new InputStreamReader(apiInput))) {

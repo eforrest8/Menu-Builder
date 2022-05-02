@@ -7,6 +7,8 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 
+// Creates nutrient infographic
+
 public class MenuNutritionDetailDialog extends Stage {
     public MenuNutritionDetailDialog(Menu menu) {
         BarChart<Number, String> chart = new BarChart<>(new NumberAxis(), new CategoryAxis());

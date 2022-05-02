@@ -9,6 +9,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+// Builds viewable and clickable
+// Edit, Load, and Settings buttons
+
 public class ScheduleViewBox extends VBox {
 
     private Runnable onEdit;

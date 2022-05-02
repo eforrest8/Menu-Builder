@@ -10,6 +10,8 @@ import javafx.scene.chart.XYChart;
 import java.time.DayOfWeek;
 import java.util.*;
 
+// Builds and compiles menu backbone
+
 public class Menu {
 
     @JsonProperty
@@ -37,6 +39,7 @@ public class Menu {
         return dayOfWeek.name();
     }
 
+    // Menu movement functions
     public void addRecipe(WebRecipe recipe) {
         recipes.add(recipe);
     }
@@ -81,6 +84,8 @@ public class Menu {
     public int hashCode() {
         return Objects.hash(dayOfWeek, recipes);
     }
+
+    // These next three classes function to build the nutrient info base from Edamam nutrient info
 
     public NutrientInfo getTotalNutrients(String nutrient) {
         Optional<NutrientInfo> result = recipes.stream()

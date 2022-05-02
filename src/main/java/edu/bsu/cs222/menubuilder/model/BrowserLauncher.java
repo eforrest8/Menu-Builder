@@ -17,7 +17,7 @@ public class BrowserLauncher {
     }
 
     public static void openBrowserOnLinux(URI uri) throws IOException {
-        // Workaround for Linux because "Desktop.getDesktop().browse()" doesn't work on some Linux implementations
+        // Linux "Desktop.getDesktop().browse()" workaround
         if (Runtime.getRuntime().exec(new String[]{"which", "xdg-open"}).getInputStream().read() != -1) {
             Runtime.getRuntime().exec(new String[]{"xdg-open", uri.toString()});
         } else {
