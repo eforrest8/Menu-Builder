@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class EdamamResultParser {
-    public EdamamResultParser() {
-    }
 
     public List<WebRecipe> parse(InputStream stream) {
         DocumentContext context = JsonPath.parse(stream);
@@ -24,30 +22,25 @@ public class EdamamResultParser {
             );
             Map<String, Map<String, Object>> totalInfo = context.read("$.hits[" + i + "].recipe.totalNutrients");
             Map<String, Map<String, Object>> dailyInfo = context.read("$.hits[" + i + "].recipe.totalDaily");
-            Map<String, NutrientInfo> totalNutrientInfoMap = new HashMap<>();
-            Map<String, NutrientInfo> dailyValueInfoMap = new HashMap<>();
-            totalInfo.forEach((key, value) -> {
-                if (value.get("quantity") instanceof Double quantity) {
-                    totalNutrientInfoMap.put(key,
-                            new NutrientInfo(
-                                    (String) value.get("label"),
-                                    quantity,
-                                    (String) value.get("unit")));
-                }
-            });
-            dailyInfo.forEach((key, value) -> {
-                if (value.get("quantity") instanceof Double quantity) {
-                    dailyValueInfoMap.put(key,
-                            new NutrientInfo(
-                                    (String) value.get("label"),
-                                    quantity,
-                                    (String) value.get("unit")));
-                }
-            });
-            recipe.setTotalNutrients(totalNutrientInfoMap);
-            recipe.setTotalDaily(dailyValueInfoMap);
+            recipe.setTotalNutrients(generateNutrientMap(totalInfo));
+            recipe.setTotalDaily(generateNutrientMap(dailyInfo));
             recipes.add(recipe);
         }
         return recipes;
     }
+
+    private Map<String, NutrientInfo> generateNutrientMap(Map<String, Map<String, Object>> initialMap) {
+        Map<String, NutrientInfo> nutrientInfoMap = new HashMap<>();
+        initialMap.forEach((key, value) -> {
+            if (value.get("quantity") instanceof Double quantity) {
+                nutrientInfoMap.put(key,
+                        new NutrientInfo(
+                                (String) value.get("label"),
+                                quantity,
+                                (String) value.get("unit")));
+            }
+        });
+        return nutrientInfoMap;
+    }
+
 }
