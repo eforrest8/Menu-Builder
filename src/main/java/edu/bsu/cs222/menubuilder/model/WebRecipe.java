@@ -23,22 +23,10 @@ public class WebRecipe {
     @JsonProperty
     private Map<String, NutrientInfo> totalDaily;
 
-    public void setTotalNutrients(Map<String, NutrientInfo> totalInfo) {
-        totalNutrients = totalInfo;
-    }
-
-    public void setTotalDaily(Map<String, NutrientInfo> dailyInfo) {
-        totalDaily = dailyInfo;
-    }
-
     @JsonCreator
     public WebRecipe(@JsonProperty("title") String title, @JsonProperty("recipeURL") String url) {
         this.title = title;
         setRecipeURL(url);
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     private void setRecipeURL(String url) {
@@ -47,6 +35,18 @@ public class WebRecipe {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setTotalNutrients(Map<String, NutrientInfo> totalInfo) {
+        totalNutrients = totalInfo;
+    }
+
+    public void setTotalDaily(Map<String, NutrientInfo> dailyInfo) {
+        totalDaily = dailyInfo;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @JsonIgnore
@@ -59,6 +59,25 @@ public class WebRecipe {
         return URI.create("");
     }
 
+    private boolean mapEquals(Map<String, NutrientInfo> first, Map<String, NutrientInfo> second) {
+        return first.entrySet().stream()
+                .allMatch(entry -> second.containsKey(entry.getKey()) &&
+                        second.get(entry.getKey()).equals(entry.getValue()));
+    }
+
+    public NutrientInfo getNutrientValue(String nutrient) {
+        return totalNutrients.get(nutrient);
+    }
+
+    public NutrientInfo getDailyValue(String nutrient) {
+        return totalDaily.get(nutrient);
+    }
+
+    @JsonIgnore
+    public Set<String> getDailyValueKeySet() {
+        return totalDaily.keySet();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,12 +86,6 @@ public class WebRecipe {
         return title.equals(webRecipe.title) && recipeURL.equals(webRecipe.recipeURL)
                 && mapEquals(totalDaily, webRecipe.totalDaily)
                 && mapEquals(totalNutrients, webRecipe.totalNutrients);
-    }
-
-    private boolean mapEquals(Map<String, NutrientInfo> first, Map<String, NutrientInfo> second) {
-        return first.entrySet().stream()
-                .allMatch(entry -> second.containsKey(entry.getKey()) &&
-                        second.get(entry.getKey()).equals(entry.getValue()));
     }
 
     @Override
@@ -90,21 +103,4 @@ public class WebRecipe {
         return Objects.hash(title, recipeURL, totalDaily, totalNutrients);
     }
 
-    public NutrientInfo getNutrientValue(String nutrient) {
-        return totalNutrients.get(nutrient);
-    }
-
-    public NutrientInfo getDailyValue(String nutrient) {
-        return totalDaily.get(nutrient);
-    }
-
-    @JsonIgnore
-    public Set<String> getNutrientKeySet() {
-        return totalNutrients.keySet();
-    }
-
-    @JsonIgnore
-    public Set<String> getDailyValueKeySet() {
-        return totalDaily.keySet();
-    }
 }
