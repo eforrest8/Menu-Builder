@@ -3,12 +3,12 @@ package edu.bsu.cs222.menubuilder.model;
 import java.io.*;
 import java.util.Objects;
 
-public class EdamamApiProvider {
+public class EdamamApiCredentialsProvider {
 
     private final String appId;
     private final String apiKey;
 
-    public EdamamApiProvider() throws IOException {
+    public EdamamApiCredentialsProvider() throws IOException {
         InputStream apiInput = getClass().getClassLoader().getResourceAsStream("api.txt");
         Objects.requireNonNull(apiInput);
         try (BufferedReader apiReader = new BufferedReader(new InputStreamReader(apiInput))) {
